@@ -1,12 +1,17 @@
 import React, { useState, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MOVIES_DATA } from '../data/moviesData';
+import { useBooking } from '../context/BookingContext';
 import MovieCard from '../components/movies/MovieCard';
 import MovieCategoryTabs from '../components/movies/MovieCategoryTabs';
 import MovieFilters from '../components/movies/MovieFilters';
-import { Film, Sparkles, X, Calendar, Clock, MapPin, Check } from 'lucide-react';
+import { Film } from 'lucide-react';
 
 const Movies = () => {
+  const navigate = useNavigate();
+  const { setSelectedMovie } = useBooking();
+
   const [activeCategory, setActiveCategory] = useState('now-showing');
   const [filters, setFilters] = useState({
     language: 'All Languages',
@@ -16,8 +21,6 @@ const Movies = () => {
     time: 'All Times',
     sortBy: 'rating-desc',
   });
-
-  const [bookingModalMovie, setBookingModalMovie] = useState(null);
 
   const handleFilterChange = (key, value) => {
     setFilters((prev) => ({ ...prev, [key]: value }));
@@ -32,6 +35,11 @@ const Movies = () => {
       time: 'All Times',
       sortBy: 'rating-desc',
     });
+  };
+
+  const handleBookTickets = (movie) => {
+    setSelectedMovie(movie);
+    navigate(`/movie/${movie.id}`);
   };
 
   // Filter & Sort Logic
@@ -152,7 +160,7 @@ const Movies = () => {
                 >
                   <MovieCard
                     movie={movie}
-                    onBookTickets={(m) => setBookingModalMovie(m)}
+                    onBookTickets={handleBookTickets}
                   />
                 </motion.div>
               ))}
@@ -168,7 +176,7 @@ const Movies = () => {
             </p>
             <button
               onClick={handleResetFilters}
-              className="mt-5 px-6 py-2.5 rounded-full bg-[#6722A0] text-white text-xs font-semibold hover:bg-[#521782] shadow-sm transition-all"
+              className="mt-5 px-6 py-2.5 rounded-full bg-[#6722A0] text-white text-xs font-semibold hover:bg-[#521782] shadow-sm transition-all cursor-pointer"
             >
               Reset Filters
             </button>
@@ -176,64 +184,6 @@ const Movies = () => {
         )}
 
       </div>
-
-      {/* Booking Feedback / Upcoming Phase Modal */}
-      {bookingModalMovie && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm animate-fadeIn">
-          <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-md w-full border border-white/80 shadow-2xl relative">
-            <button
-              onClick={() => setBookingModalMovie(null)}
-              className="absolute top-4 right-4 w-8 h-8 rounded-full bg-[#F5F0FC] hover:bg-[#E9E5FA] flex items-center justify-center text-[#746A7D] hover:text-[#241532] transition-colors"
-            >
-              <X className="w-4 h-4" />
-            </button>
-
-            <div className="flex items-start gap-4">
-              <img
-                src={bookingModalMovie.poster}
-                alt={bookingModalMovie.title}
-                className="w-20 h-28 object-cover rounded-xl shadow-md border border-[#E8E1EF] flex-shrink-0"
-              />
-              <div>
-                <span className="text-[10px] font-bold uppercase tracking-wider text-[#6722A0] bg-[#F5F0FC] px-2.5 py-0.5 rounded-full">
-                  {bookingModalMovie.certificate} • {bookingModalMovie.language}
-                </span>
-                <h3 className="font-display font-extrabold text-lg text-[#241532] mt-1 leading-tight">
-                  {bookingModalMovie.title}
-                </h3>
-                <p className="text-xs text-[#746A7D] mt-0.5">
-                  {bookingModalMovie.genre} • {bookingModalMovie.duration}
-                </p>
-                <div className="mt-2 text-xs font-semibold text-[#6722A0]">
-                  ★ {bookingModalMovie.rating} ({bookingModalMovie.votes})
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-6 p-4 rounded-2xl bg-[#F8F4FD] border border-[#E8E1EF]/70 text-xs text-[#746A7D]">
-              <div className="flex items-center gap-2 text-[#321044] font-semibold mb-1">
-                <Sparkles className="w-4 h-4 text-[#9B4BC5]" />
-                <span>Next Step: Seat Selection</span>
-              </div>
-              <p>
-                Screen selection and interactive seat reservation for <strong className="text-[#241532]">{bookingModalMovie.title}</strong> will be implemented in the next phase!
-              </p>
-            </div>
-
-            <div className="mt-6 flex items-center justify-end gap-3">
-              <button
-                type="button"
-                onClick={() => setBookingModalMovie(null)}
-                className="px-6 py-2.5 rounded-full bg-[#6722A0] hover:bg-[#521782] text-white text-xs font-semibold shadow-md transition-all cursor-pointer"
-              >
-                Got it
-              </button>
-            </div>
-
-          </div>
-        </div>
-      )}
-
     </div>
   );
 };

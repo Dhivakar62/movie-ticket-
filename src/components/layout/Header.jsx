@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
-import { ChevronDown, Search, Menu, X } from 'lucide-react';
+import { ChevronDown, Search, Menu, X, User } from 'lucide-react';
+import avatarPriya from '../../assets/images/avatar_priya.png';
 
 const Header = () => {
   const navigate = useNavigate();
@@ -15,27 +16,29 @@ const Header = () => {
   const navItems = [
     { name: 'Home', path: '/', hasDropdown: false },
     { name: 'Movies', path: '/movies', hasDropdown: true },
-    { name: 'Events', path: '/#events', hasDropdown: true },
-    { name: 'Offers', path: '/#offers', hasDropdown: false },
-    { name: 'About', path: '/#about', hasDropdown: false },
-    { name: 'Contact', path: '/#contact', hasDropdown: false },
+    { name: 'Events', path: '/events', hasDropdown: true },
+    { name: 'Offers', path: '/offers', hasDropdown: false },
+    { name: 'About', path: '/about', hasDropdown: false },
+    { name: 'Contact', path: '/contact', hasDropdown: false },
   ];
 
   const handleNavClick = (item) => {
-    if (item.path.startsWith('/#')) {
-      if (currentPath !== '/') {
-        navigate('/');
-      }
-    } else {
-      navigate(item.path);
-    }
+    navigate(item.path);
     setMobileMenuOpen(false);
   };
 
   const isNavActive = (item) => {
     if (item.path === '/' && currentPath === '/') return true;
-    if (item.path === '/movies' && currentPath === '/movies') return true;
+    if (item.path !== '/' && currentPath.startsWith(item.path)) return true;
     return false;
+  };
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    if (searchVal.trim()) {
+      navigate('/movies');
+      setSearchOpen(false);
+    }
   };
 
   return (
@@ -90,11 +93,11 @@ const Header = () => {
 
         {/* Right: Actions */}
         <div className="hidden sm:flex items-center gap-3">
-          {/* Search Button */}
+          {/* Search Button / Bar */}
           <div className="relative">
             {searchOpen ? (
-              <div className="flex items-center bg-[#F5F0FC] border border-[#6722A0] rounded-full px-3 py-1.5 transition-all">
-                <Search className="w-4 h-4 text-[#6722A0] mr-2" />
+              <form onSubmit={handleSearchSubmit} className="flex items-center bg-[#F5F0FC] border border-[#6722A0] rounded-full px-3 py-1.5 transition-all">
+                <Search className="w-4 h-4 text-[#6722A0] mr-2 flex-shrink-0" />
                 <input
                   type="text"
                   placeholder="Search movies, events..."
@@ -104,10 +107,10 @@ const Header = () => {
                   onBlur={() => !searchVal && setSearchOpen(false)}
                   className="bg-transparent border-none outline-none text-xs text-[#241532] w-40 placeholder-[#746A7D]"
                 />
-                <button onClick={() => setSearchOpen(false)} className="text-[#746A7D] hover:text-[#241532]">
+                <button type="button" onClick={() => setSearchOpen(false)} className="text-[#746A7D] hover:text-[#241532] cursor-pointer">
                   <X className="w-3.5 h-3.5" />
                 </button>
-              </div>
+              </form>
             ) : (
               <button
                 onClick={() => setSearchOpen(true)}
@@ -119,13 +122,20 @@ const Header = () => {
             )}
           </div>
 
-          {/* Login Button */}
-          <button className="px-5 py-2 rounded-full border border-[#E8E1EF] hover:border-[#6722A0] text-[#241532] hover:text-[#6722A0] text-xs font-semibold bg-white hover:bg-[#F5F0FC] transition-all cursor-pointer">
-            Login
+          {/* Login / Dashboard Link */}
+          <button 
+            onClick={() => navigate('/dashboard')}
+            className="px-5 py-2 rounded-full border border-[#E8E1EF] hover:border-[#6722A0] text-[#241532] hover:text-[#6722A0] text-xs font-semibold bg-white hover:bg-[#F5F0FC] transition-all cursor-pointer flex items-center gap-1.5"
+          >
+            <User className="w-3.5 h-3.5 text-[#6722A0]" />
+            <span>Dashboard</span>
           </button>
 
           {/* My Bookings Button */}
-          <button className="px-5 py-2 rounded-full bg-[#6722A0] hover:bg-[#531584] text-white text-xs font-semibold shadow-[0_2px_10px_rgba(103,34,160,0.25)] transition-all cursor-pointer hover:scale-[1.02] active:scale-[0.98]">
+          <button 
+            onClick={() => navigate('/my-bookings')}
+            className="px-5 py-2 rounded-full bg-[#6722A0] hover:bg-[#521782] text-white text-xs font-semibold shadow-[0_2px_10px_rgba(103,34,160,0.25)] transition-all cursor-pointer hover:scale-[1.02] active:scale-[0.98]"
+          >
             <span>My Bookings</span>
           </button>
         </div>
@@ -168,10 +178,22 @@ const Header = () => {
             );
           })}
           <div className="pt-3 border-t border-[#E8E1EF] flex items-center gap-3">
-            <button className="flex-1 py-2 rounded-full border border-[#E8E1EF] text-xs font-semibold text-[#241532] text-center">
-              Login
+            <button 
+              onClick={() => {
+                navigate('/dashboard');
+                setMobileMenuOpen(false);
+              }}
+              className="flex-1 py-2 rounded-full border border-[#E8E1EF] text-xs font-semibold text-[#241532] text-center"
+            >
+              Dashboard
             </button>
-            <button className="flex-1 py-2 rounded-full bg-[#6722A0] text-white text-xs font-semibold text-center">
+            <button 
+              onClick={() => {
+                navigate('/my-bookings');
+                setMobileMenuOpen(false);
+              }}
+              className="flex-1 py-2 rounded-full bg-[#6722A0] text-white text-xs font-semibold text-center"
+            >
               My Bookings
             </button>
           </div>
