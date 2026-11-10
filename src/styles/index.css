@@ -114,12 +114,129 @@
   }
 }
 
-@keyframes shimmerSlow {
+/* 3D Cinema Floating Keyframes */
+@keyframes floatPopcornBucket {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) rotate(-2deg) scale(1);
+  }
+  50% {
+    transform: translate3d(8px, -26px, 0) rotate(3deg) scale(1.02);
+  }
+}
+
+@keyframes floatSodaCup {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) rotate(2deg) scale(1);
+  }
+  50% {
+    transform: translate3d(-10px, -20px, 0) rotate(-2.5deg) scale(1.01);
+  }
+}
+
+@keyframes floatFrenchFries {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) rotate(-3deg) scale(1);
+  }
+  50% {
+    transform: translate3d(6px, -24px, 0) rotate(2.5deg) scale(1.02);
+  }
+}
+
+@keyframes floatCinemaTickets {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) rotate(-5deg) scale(1);
+  }
+  33% {
+    transform: translate3d(10px, -18px, 0) rotate(3deg) scale(1.03);
+  }
+  66% {
+    transform: translate3d(-6px, -28px, 0) rotate(-2deg) scale(0.98);
+  }
+}
+
+@keyframes floatFilmReel {
   0% {
-    background-position: -200% 0;
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate3d(4px, -18px, 0) rotate(180deg);
   }
   100% {
-    background-position: 200% 0;
+    transform: translate3d(0, 0, 0) rotate(360deg);
+  }
+}
+
+@keyframes floatClapperboard {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) rotate(4deg) scale(1);
+  }
+  50% {
+    transform: translate3d(-8px, -22px, 0) rotate(-3.5deg) scale(1.02);
+  }
+}
+
+@keyframes floatCinemaCamera {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) rotate(-1.5deg) scale(1);
+  }
+  50% {
+    transform: translate3d(6px, -16px, 0) rotate(2deg) scale(1.015);
+  }
+}
+
+@keyframes floatFilmStrip {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) rotate(12deg) scale(1);
+  }
+  50% {
+    transform: translate3d(-12px, -26px, 0) rotate(16deg) scale(1.02);
+  }
+}
+
+@keyframes floatKernel1 {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate3d(14px, -32px, 0) rotate(45deg);
+  }
+}
+
+@keyframes floatKernel2 {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) rotate(20deg);
+  }
+  50% {
+    transform: translate3d(-16px, -28px, 0) rotate(-35deg);
+  }
+}
+
+@keyframes floatKernel3 {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) rotate(-15deg);
+  }
+  50% {
+    transform: translate3d(18px, -36px, 0) rotate(30deg);
+  }
+}
+
+@keyframes floatKernel4 {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) rotate(10deg);
+  }
+  50% {
+    transform: translate3d(-12px, -24px, 0) rotate(-40deg);
+  }
+}
+
+@keyframes cinemaSparkle {
+  0%, 100% {
+    opacity: 0.35;
+    transform: scale(0.7) rotate(0deg);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.25) rotate(90deg);
   }
 }
 
@@ -135,10 +252,101 @@
   animation: pulseGlow 12s ease-in-out infinite;
 }
 
+/* 3D Cinema Floating Helper Classes */
+.animate-popcorn-bucket {
+  animation: floatPopcornBucket 14s ease-in-out infinite;
+  filter: drop-shadow(0 28px 45px rgba(103, 34, 160, 0.24));
+  will-change: transform;
+}
+
+.animate-soda-cup {
+  animation: floatSodaCup 16s ease-in-out infinite;
+  filter: drop-shadow(0 26px 40px rgba(103, 34, 160, 0.22));
+  will-change: transform;
+}
+
+.animate-french-fries {
+  animation: floatFrenchFries 15s ease-in-out infinite;
+  filter: drop-shadow(0 24px 38px rgba(103, 34, 160, 0.20));
+  will-change: transform;
+}
+
+.animate-cinema-tickets {
+  animation: floatCinemaTickets 13s ease-in-out infinite;
+  filter: drop-shadow(0 22px 36px rgba(103, 34, 160, 0.25));
+  will-change: transform;
+}
+
+.animate-film-reel {
+  animation: floatFilmReel 32s linear infinite;
+  filter: drop-shadow(0 24px 40px rgba(103, 34, 160, 0.20));
+  will-change: transform;
+}
+
+.animate-clapperboard {
+  animation: floatClapperboard 13s ease-in-out infinite;
+  filter: drop-shadow(0 22px 35px rgba(50, 16, 68, 0.22));
+  will-change: transform;
+}
+
+.animate-cinema-camera {
+  animation: floatCinemaCamera 18s ease-in-out infinite;
+  filter: drop-shadow(0 28px 45px rgba(103, 34, 160, 0.24));
+  will-change: transform;
+}
+
+.animate-film-strip {
+  animation: floatFilmStrip 22s ease-in-out infinite;
+  filter: drop-shadow(0 20px 32px rgba(103, 34, 160, 0.18));
+  will-change: transform;
+}
+
+.animate-kernel-1 {
+  animation: floatKernel1 11s ease-in-out infinite;
+  filter: drop-shadow(0 12px 20px rgba(245, 158, 11, 0.25));
+  will-change: transform;
+}
+
+.animate-kernel-2 {
+  animation: floatKernel2 14s ease-in-out infinite;
+  filter: drop-shadow(0 14px 22px rgba(245, 158, 11, 0.25));
+  will-change: transform;
+}
+
+.animate-kernel-3 {
+  animation: floatKernel3 16s ease-in-out infinite;
+  filter: drop-shadow(0 12px 20px rgba(245, 158, 11, 0.25));
+  will-change: transform;
+}
+
+.animate-kernel-4 {
+  animation: floatKernel4 12s ease-in-out infinite;
+  filter: drop-shadow(0 10px 18px rgba(245, 158, 11, 0.25));
+  will-change: transform;
+}
+
+.animate-cinema-sparkle {
+  animation: cinemaSparkle 4.5s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .animate-float-slow,
   .animate-float-reverse,
-  .animate-pulse-glow {
+  .animate-pulse-glow,
+  .animate-popcorn-bucket,
+  .animate-soda-cup,
+  .animate-french-fries,
+  .animate-cinema-tickets,
+  .animate-film-reel,
+  .animate-clapperboard,
+  .animate-cinema-camera,
+  .animate-film-strip,
+  .animate-kernel-1,
+  .animate-kernel-2,
+  .animate-kernel-3,
+  .animate-kernel-4,
+  .animate-cinema-sparkle {
     animation: none !important;
   }
 }
