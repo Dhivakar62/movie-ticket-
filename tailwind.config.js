@@ -7,34 +7,36 @@ export default {
   theme: {
     extend: {
       colors: {
-        brand: {
-          black: '#08090c',
-          dark: '#0e1117',
-          surface: '#131720',
-          card: '#181d28',
-          cardHover: '#1f2535',
-          border: '#282f42',
-          borderLight: '#39425a',
-          gold: '#d4af37',
-          goldLight: '#f6d87c',
-          goldDark: '#997316',
-          amber: '#e6a817',
+        dream: {
+          primary: '#6722A0',
+          primaryDark: '#531584',
+          plum: '#321044',
+          orchid: '#9B4BC5',
+          softPink: '#F9E5F2',
+          lavender: '#F5F0FC',
+          periwinkle: '#E9E5FA',
+          paleBlue: '#E6ECFF',
+          pearl: '#FFFFFF',
+          border: '#E8E1EF',
+          text: '#241532',
+          muted: '#746A7D',
+          amber: '#E6A817',
         }
       },
       fontFamily: {
-        display: ['"Cinzel"', '"Playfair Display"', 'Georgia', 'serif'],
-        sans: ['"Inter"', '"Plus Jakarta Sans"', 'sans-serif'],
+        sans: ['"Inter"', 'sans-serif'],
+        display: ['"Poppins"', '"Inter"', 'sans-serif'],
+        serif: ['"Poppins"', 'sans-serif'],
       },
       boxShadow: {
-        'gold-sm': '0 0 10px rgba(212, 175, 55, 0.2)',
-        'gold-md': '0 0 20px rgba(212, 175, 55, 0.25)',
-        'gold-lg': '0 0 35px rgba(212, 175, 55, 0.35)',
-        'screen-glow': '0 -15px 45px rgba(212, 175, 55, 0.35)',
+        'dream-sm': '0 2px 10px rgba(103, 34, 160, 0.06)',
+        'dream-md': '0 8px 30px rgba(103, 34, 160, 0.10)',
+        'dream-lg': '0 16px 45px rgba(103, 34, 160, 0.15)',
+        'dream-glow': '0 0 25px rgba(103, 34, 160, 0.35)',
       },
       backgroundImage: {
-        'gold-gradient': 'linear-gradient(135deg, #f5d061 0%, #d4af37 50%, #aa771c 100%)',
-        'gold-radial': 'radial-gradient(circle at center, rgba(212,175,55,0.15) 0%, transparent 70%)',
-        'dark-glass': 'linear-gradient(135deg, rgba(26, 31, 44, 0.7) 0%, rgba(14, 17, 24, 0.85) 100%)',
+        'hero-gradient': 'linear-gradient(135deg, #F8F4FD 0%, #EFE8FA 45%, #FDEEE9 100%)',
+        'purple-gradient': 'linear-gradient(135deg, #9B4BC5 0%, #6722A0 100%)',
       }
     },
   },
