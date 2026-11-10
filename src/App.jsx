@@ -46,7 +46,7 @@ export default function App() {
     <BookingProvider>
       <Router>
         <ScrollToTop />
-        <div className="min-h-screen bg-[#FCFBFE] text-[#241532] flex flex-col font-sans selection:bg-[#9B4BC5]/20 selection:text-[#321044] relative overflow-x-hidden">
+        <div className="min-h-screen bg-transparent text-[#241532] flex flex-col font-sans selection:bg-[#9B4BC5]/20 selection:text-[#321044] relative overflow-x-hidden">
           
           {/* Main Sticky Header */}
           <Header />
