@@ -6,7 +6,7 @@ const FeatureHighlights = () => {
     {
       id: 'screens',
       icon: Film,
-      iconBg: 'bg-[#F4EDFC]/80',
+      iconBg: 'bg-[#F4EDFC]/90',
       iconColor: 'text-[#6722A0]',
       title: 'Multiple Screens',
       subtitle: 'Premium Experience',
@@ -14,7 +14,7 @@ const FeatureHighlights = () => {
     {
       id: 'events',
       icon: Star,
-      iconBg: 'bg-[#FEF6E8]/80',
+      iconBg: 'bg-[#FEF6E8]/90',
       iconColor: 'text-[#EAB308]',
       title: 'Exclusive Events',
       subtitle: 'Celebrate in Style',
@@ -22,7 +22,7 @@ const FeatureHighlights = () => {
     {
       id: 'offers',
       icon: Gift,
-      iconBg: 'bg-[#FDF1F7]/80',
+      iconBg: 'bg-[#FDF1F7]/90',
       iconColor: 'text-[#EC4899]',
       title: 'Exciting Offers',
       subtitle: 'More Savings',
@@ -30,13 +30,26 @@ const FeatureHighlights = () => {
   ];
 
   return (
-    <section className="relative w-full pt-8 pb-14 overflow-hidden">
-      {/* Subtle Ambient Glow Behind Feature Strip */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 h-28 bg-[#9B4BC5]/5 rounded-full blur-3xl pointer-events-none"></div>
-
+    <section className="relative w-full pt-8 pb-16">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 relative z-10">
-        {/* Unified Translucent Glass Strip */}
-        <div className="bg-white/60 backdrop-blur-md rounded-3xl border border-white/80 shadow-[0_8px_30px_rgba(103,34,160,0.04)] px-6 py-5 sm:px-10 sm:py-6">
+        
+        {/* Glass Material B: Layered Transparent Glass Surface */}
+        <div 
+          className="rounded-3xl px-6 py-5 sm:px-10 sm:py-6 transition-all duration-300 hover:shadow-[0_24px_60px_-15px_rgba(103,34,160,0.14)] relative overflow-hidden"
+          style={{
+            background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.74) 0%, rgba(246, 240, 252, 0.58) 50%, rgba(255, 255, 255, 0.7) 100%)',
+            backdropFilter: 'blur(24px) saturate(180%)',
+            border: '1.5px solid rgba(255, 255, 255, 0.92)',
+            boxShadow: `
+              inset 0 1.5px 3px rgba(255, 255, 255, 0.95),
+              inset 0 -1px 2px rgba(183, 139, 229, 0.08),
+              0 20px 50px -15px rgba(103, 34, 160, 0.1)
+            `
+          }}
+        >
+          {/* Subtle Top-Edge Specular Glass Glint */}
+          <div className="absolute top-0 inset-x-0 h-[1.5px] bg-gradient-to-r from-transparent via-white to-transparent opacity-90 pointer-events-none" />
+
           <div className="flex flex-col sm:flex-row items-center justify-between gap-6 sm:gap-8">
             {features.map((item) => {
               const Icon = item.icon;
@@ -45,9 +58,9 @@ const FeatureHighlights = () => {
                   key={item.id}
                   className="flex items-center gap-3.5 group cursor-pointer transition-transform hover:-translate-y-0.5"
                 >
-                  {/* Rounded Icon Badge with Glass Edge */}
+                  {/* Rounded Crystal Icon Badge with Specular Border */}
                   <div
-                    className={`w-11 h-11 rounded-2xl ${item.iconBg} ${item.iconColor} flex items-center justify-center flex-shrink-0 shadow-xs border border-white/90 backdrop-blur-sm transition-transform group-hover:scale-105`}
+                    className={`w-12 h-12 rounded-2xl ${item.iconBg} ${item.iconColor} flex items-center justify-center flex-shrink-0 border border-white shadow-[inset_0_1.5px_2px_rgba(255,255,255,0.9),0_6px_16px_rgba(103,34,160,0.08)] backdrop-blur-md transition-all group-hover:scale-105 group-hover:shadow-[0_8px_20px_rgba(103,34,160,0.15)]`}
                   >
                     <Icon className="w-5 h-5 fill-current/20" />
                   </div>
@@ -66,6 +79,7 @@ const FeatureHighlights = () => {
             })}
           </div>
         </div>
+
       </div>
     </section>
   );

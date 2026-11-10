@@ -24,19 +24,32 @@ const BookingSearch = ({ onSearch }) => {
   };
 
   return (
-    <div className="relative z-30 max-w-4xl mx-auto px-4 -mt-9 sm:-mt-10">
-      {/* Glassmorphism Floating Search Card */}
-      <div className="bg-white/85 backdrop-blur-xl rounded-2xl sm:rounded-full border border-white/90 shadow-[0_16px_40px_rgba(103,34,160,0.08)] p-2 sm:p-2.5 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2 transition-all hover:shadow-[0_20px_48px_rgba(103,34,160,0.12)]">
+    <div className="relative z-30 max-w-4xl mx-auto px-4 -mt-10 sm:-mt-12">
+      {/* Glass Material A: Premium Frosted Glass Floating Card */}
+      <div 
+        className="rounded-2xl sm:rounded-full p-2.5 sm:p-2.5 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2 transition-all duration-300 hover:-translate-y-0.5"
+        style={{
+          background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.93) 0%, rgba(248, 243, 253, 0.85) 50%, rgba(255, 255, 255, 0.95) 100%)',
+          backdropFilter: 'blur(30px) saturate(190%)',
+          border: '1.5px solid rgba(255, 255, 255, 0.95)',
+          boxShadow: `
+            inset 0 2px 2px 0 rgba(255, 255, 255, 1),
+            inset 0 -1.5px 2px 0 rgba(183, 139, 229, 0.12),
+            0 24px 60px -12px rgba(103, 34, 160, 0.16),
+            0 8px 24px -4px rgba(169, 184, 244, 0.14)
+          `
+        }}
+      >
         
         {/* Field 1: City */}
         <div className="relative flex-1">
           <button
             type="button"
             onClick={() => toggleDropdown('city')}
-            className="w-full px-4 py-2 rounded-xl sm:rounded-full hover:bg-white/60 transition-colors text-left cursor-pointer group flex items-center justify-between"
+            className="w-full px-4 py-2 rounded-xl sm:rounded-full hover:bg-white/70 transition-all text-left cursor-pointer group flex items-center justify-between"
           >
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-full bg-[#F5F0FC]/80 text-[#6722A0] flex items-center justify-center flex-shrink-0 transition-colors shadow-xs">
+              <div className="w-8 h-8 rounded-full bg-[#F5F0FC] text-[#6722A0] border border-white flex items-center justify-center flex-shrink-0 transition-all shadow-xs group-hover:scale-105">
                 <MapPin className="w-4 h-4" />
               </div>
               <div>
@@ -48,12 +61,20 @@ const BookingSearch = ({ onSearch }) => {
                 </span>
               </div>
             </div>
-            <ChevronDown className="w-4 h-4 text-[#746A7D] group-hover:text-[#6722A0] ml-2" />
+            <ChevronDown className="w-4 h-4 text-[#746A7D] group-hover:text-[#6722A0] transition-colors ml-2" />
           </button>
 
           {/* City Dropdown Menu */}
           {openDropdown === 'city' && (
-            <div className="absolute top-full left-0 mt-2 w-52 bg-white/95 backdrop-blur-xl rounded-2xl shadow-xl border border-white/80 py-2 z-50 animate-fadeIn">
+            <div 
+              className="absolute top-full left-0 mt-2.5 w-52 rounded-2xl py-2 z-50 animate-fadeIn"
+              style={{
+                background: 'rgba(255, 255, 255, 0.96)',
+                backdropFilter: 'blur(24px)',
+                border: '1.5px solid rgba(255, 255, 255, 0.9)',
+                boxShadow: '0 20px 48px -10px rgba(103, 34, 160, 0.18)'
+              }}
+            >
               {cities.map((c) => (
                 <button
                   key={c}
@@ -74,18 +95,18 @@ const BookingSearch = ({ onSearch }) => {
           )}
         </div>
 
-        {/* Vertical Divider 1 */}
-        <div className="h-8 w-[1px] bg-gradient-to-b from-transparent via-[#E8E1EF] to-transparent hidden sm:block"></div>
+        {/* Elegant Vertical Divider 1 */}
+        <div className="h-8 w-[1.5px] bg-gradient-to-b from-transparent via-[#D8C5F4]/70 to-transparent hidden sm:block"></div>
 
         {/* Field 2: Date */}
         <div className="relative flex-1">
           <button
             type="button"
             onClick={() => toggleDropdown('date')}
-            className="w-full px-4 py-2 rounded-xl sm:rounded-full hover:bg-white/60 transition-colors text-left cursor-pointer group flex items-center justify-between"
+            className="w-full px-4 py-2 rounded-xl sm:rounded-full hover:bg-white/70 transition-all text-left cursor-pointer group flex items-center justify-between"
           >
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-full bg-[#F5F0FC]/80 text-[#6722A0] flex items-center justify-center flex-shrink-0 transition-colors shadow-xs">
+              <div className="w-8 h-8 rounded-full bg-[#F5F0FC] text-[#6722A0] border border-white flex items-center justify-center flex-shrink-0 transition-all shadow-xs group-hover:scale-105">
                 <Calendar className="w-4 h-4" />
               </div>
               <div>
@@ -97,12 +118,20 @@ const BookingSearch = ({ onSearch }) => {
                 </span>
               </div>
             </div>
-            <ChevronDown className="w-4 h-4 text-[#746A7D] group-hover:text-[#6722A0] ml-2" />
+            <ChevronDown className="w-4 h-4 text-[#746A7D] group-hover:text-[#6722A0] transition-colors ml-2" />
           </button>
 
           {/* Date Dropdown Menu */}
           {openDropdown === 'date' && (
-            <div className="absolute top-full left-0 mt-2 w-56 bg-white/95 backdrop-blur-xl rounded-2xl shadow-xl border border-white/80 py-2 z-50 animate-fadeIn">
+            <div 
+              className="absolute top-full left-0 mt-2.5 w-56 rounded-2xl py-2 z-50 animate-fadeIn"
+              style={{
+                background: 'rgba(255, 255, 255, 0.96)',
+                backdropFilter: 'blur(24px)',
+                border: '1.5px solid rgba(255, 255, 255, 0.9)',
+                boxShadow: '0 20px 48px -10px rgba(103, 34, 160, 0.18)'
+              }}
+            >
               {dates.map((d) => (
                 <button
                   key={d}
@@ -123,18 +152,18 @@ const BookingSearch = ({ onSearch }) => {
           )}
         </div>
 
-        {/* Vertical Divider 2 */}
-        <div className="h-8 w-[1px] bg-gradient-to-b from-transparent via-[#E8E1EF] to-transparent hidden sm:block"></div>
+        {/* Elegant Vertical Divider 2 */}
+        <div className="h-8 w-[1.5px] bg-gradient-to-b from-transparent via-[#D8C5F4]/70 to-transparent hidden sm:block"></div>
 
         {/* Field 3: Movie */}
         <div className="relative flex-1">
           <button
             type="button"
             onClick={() => toggleDropdown('movie')}
-            className="w-full px-4 py-2 rounded-xl sm:rounded-full hover:bg-white/60 transition-colors text-left cursor-pointer group flex items-center justify-between"
+            className="w-full px-4 py-2 rounded-xl sm:rounded-full hover:bg-white/70 transition-all text-left cursor-pointer group flex items-center justify-between"
           >
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-full bg-[#F5F0FC]/80 text-[#6722A0] flex items-center justify-center flex-shrink-0 transition-colors shadow-xs">
+              <div className="w-8 h-8 rounded-full bg-[#F5F0FC] text-[#6722A0] border border-white flex items-center justify-center flex-shrink-0 transition-all shadow-xs group-hover:scale-105">
                 <Film className="w-4 h-4" />
               </div>
               <div>
@@ -146,12 +175,20 @@ const BookingSearch = ({ onSearch }) => {
                 </span>
               </div>
             </div>
-            <ChevronDown className="w-4 h-4 text-[#746A7D] group-hover:text-[#6722A0] ml-2" />
+            <ChevronDown className="w-4 h-4 text-[#746A7D] group-hover:text-[#6722A0] transition-colors ml-2" />
           </button>
 
           {/* Movie Dropdown Menu */}
           {openDropdown === 'movie' && (
-            <div className="absolute top-full right-0 mt-2 w-60 bg-white/95 backdrop-blur-xl rounded-2xl shadow-xl border border-white/80 py-2 z-50 animate-fadeIn">
+            <div 
+              className="absolute top-full right-0 mt-2.5 w-60 rounded-2xl py-2 z-50 animate-fadeIn"
+              style={{
+                background: 'rgba(255, 255, 255, 0.96)',
+                backdropFilter: 'blur(24px)',
+                border: '1.5px solid rgba(255, 255, 255, 0.9)',
+                boxShadow: '0 20px 48px -10px rgba(103, 34, 160, 0.18)'
+              }}
+            >
               {movies.map((m) => (
                 <button
                   key={m}
@@ -177,7 +214,7 @@ const BookingSearch = ({ onSearch }) => {
           <button
             type="button"
             onClick={handleSearchClick}
-            className="w-full sm:w-auto px-7 py-3 rounded-xl sm:rounded-full bg-[#6722A0] hover:bg-[#521782] text-white font-semibold text-sm shadow-[0_4px_16px_rgba(103,34,160,0.28)] transition-all hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
+            className="w-full sm:w-auto px-7 py-3 rounded-xl sm:rounded-full bg-[#6722A0] hover:bg-[#521782] text-white font-semibold text-sm shadow-[0_6px_22px_rgba(103,34,160,0.32)] transition-all hover:scale-[1.03] active:scale-[0.98] cursor-pointer"
           >
             Search
           </button>

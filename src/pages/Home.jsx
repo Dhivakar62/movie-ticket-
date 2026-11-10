@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Hero from '../components/home/Hero';
 import BookingSearch from '../components/home/BookingSearch';
 import FeatureHighlights from '../components/home/FeatureHighlights';
+import GlassmorphicBackground from '../components/home/GlassmorphicBackground';
 import { Sparkles } from 'lucide-react';
 
 const Home = () => {
@@ -21,7 +22,7 @@ const Home = () => {
   };
 
   const handlePlanEvent = () => {
-    showToast('Private Event Booking packages are coming in the upcoming phase!');
+    showToast('Private Event Booking celebration packages are coming in the upcoming phase!');
   };
 
   const handleSearch = (searchParams) => {
@@ -32,8 +33,11 @@ const Home = () => {
   };
 
   return (
-    <main className="w-full min-h-[calc(100vh-74px)] flex flex-col justify-between bg-transparent relative">
-      {/* Toast Notification */}
+    <main className="w-full min-h-[calc(100vh-74px)] flex flex-col justify-between bg-transparent relative overflow-hidden">
+      {/* Complete Multi-Layer Glassmorphic Background Environment */}
+      <GlassmorphicBackground />
+
+      {/* Interactive Toast Notification */}
       {notification && (
         <div className="fixed bottom-6 right-6 z-50 bg-[#321044]/95 backdrop-blur-md text-white px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-3 border border-[#6722A0]/40 animate-bounce">
           <div className="w-6 h-6 rounded-full bg-[#6722A0] flex items-center justify-center flex-shrink-0">
@@ -44,7 +48,7 @@ const Home = () => {
       )}
 
       {/* Main Landing Sections */}
-      <div>
+      <div className="relative z-10">
         <Hero
           onExploreMovies={handleExploreMovies}
           onPlanEvent={handlePlanEvent}
