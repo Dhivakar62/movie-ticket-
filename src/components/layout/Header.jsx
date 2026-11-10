@@ -1,29 +1,51 @@
 import React, { useState } from 'react';
-import { ChevronDown, Search, Menu, X, Ticket } from 'lucide-react';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
+import { ChevronDown, Search, Menu, X } from 'lucide-react';
 
 const Header = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [activeNav, setActiveNav] = useState('Home');
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchVal, setSearchVal] = useState('');
 
+  const currentPath = location.pathname;
+
   const navItems = [
-    { name: 'Home', hasDropdown: false },
-    { name: 'Movies', hasDropdown: true },
-    { name: 'Events', hasDropdown: true },
-    { name: 'Offers', hasDropdown: false },
-    { name: 'About', hasDropdown: false },
-    { name: 'Contact', hasDropdown: false },
+    { name: 'Home', path: '/', hasDropdown: false },
+    { name: 'Movies', path: '/movies', hasDropdown: true },
+    { name: 'Events', path: '/#events', hasDropdown: true },
+    { name: 'Offers', path: '/#offers', hasDropdown: false },
+    { name: 'About', path: '/#about', hasDropdown: false },
+    { name: 'Contact', path: '/#contact', hasDropdown: false },
   ];
 
+  const handleNavClick = (item) => {
+    if (item.path.startsWith('/#')) {
+      if (currentPath !== '/') {
+        navigate('/');
+      }
+    } else {
+      navigate(item.path);
+    }
+    setMobileMenuOpen(false);
+  };
+
+  const isNavActive = (item) => {
+    if (item.path === '/' && currentPath === '/') return true;
+    if (item.path === '/movies' && currentPath === '/movies') return true;
+    return false;
+  };
+
   return (
-    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-[#E8E1EF] shadow-[0_2px_12px_rgba(103,34,160,0.04)] transition-all">
+    <header className="sticky top-0 z-50 bg-white/85 backdrop-blur-md border-b border-[#E8E1EF]/80 shadow-[0_4px_20px_rgba(103,34,160,0.03)] transition-all">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-[74px] flex items-center justify-between">
         
         {/* Left: DreamCine Logo */}
-        <div className="flex items-center gap-3 cursor-pointer select-none">
+        <Link to="/" className="flex items-center gap-3 cursor-pointer select-none group">
           {/* Logo Symbol: Purple gradient rounded play button */}
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-[#6722A0] via-[#852ECA] to-[#9B4BC5] p-[2px] shadow-[0_4px_12px_rgba(103,34,160,0.25)] flex items-center justify-center">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-[#6722A0] via-[#852ECA] to-[#9B4BC5] p-[2px] shadow-[0_4px_12px_rgba(103,34,160,0.25)] flex items-center justify-center transition-transform group-hover:scale-105">
             <div className="w-full h-full bg-gradient-to-br from-[#6722A0] to-[#4F1381] rounded-[10px] flex items-center justify-center">
               <svg viewBox="0 0 24 24" className="w-5 h-5 text-white fill-white ml-0.5" xmlns="http://www.w3.org/2000/svg">
                 <path d="M7 4.5v15a1 1 0 001.55.83l12-7.5a1 1 0 000-1.66l-12-7.5A1 1 0 007 4.5z" />
@@ -40,26 +62,30 @@ const Header = () => {
               Movies & Events
             </span>
           </div>
-        </div>
+        </Link>
 
         {/* Center: Desktop Navigation Links */}
         <nav className="hidden md:flex items-center gap-7 lg:gap-8">
-          {navItems.map((item) => (
-            <button
-              key={item.name}
-              onClick={() => setActiveNav(item.name)}
-              className={`flex items-center gap-1 text-sm font-medium transition-colors cursor-pointer ${
-                activeNav === item.name
-                  ? 'text-[#6722A0] font-bold'
-                  : 'text-[#241532] hover:text-[#6722A0]'
-              }`}
-            >
-              <span>{item.name}</span>
-              {item.hasDropdown && (
-                <ChevronDown className="w-3.5 h-3.5 text-[#746A7D] group-hover:text-[#6722A0]" />
-              )}
-            </button>
-          ))}
+          {navItems.map((item) => {
+            const active = isNavActive(item);
+            return (
+              <button
+                key={item.name}
+                type="button"
+                onClick={() => handleNavClick(item)}
+                className={`flex items-center gap-1 text-sm font-medium transition-colors cursor-pointer ${
+                  active
+                    ? 'text-[#6722A0] font-bold'
+                    : 'text-[#241532] hover:text-[#6722A0]'
+                }`}
+              >
+                <span>{item.name}</span>
+                {item.hasDropdown && (
+                  <ChevronDown className="w-3.5 h-3.5 text-[#746A7D] group-hover:text-[#6722A0]" />
+                )}
+              </button>
+            );
+          })}
         </nav>
 
         {/* Right: Actions */}
@@ -125,26 +151,27 @@ const Header = () => {
 
       {/* Mobile Dropdown Menu */}
       {mobileMenuOpen && (
-        <div className="sm:hidden bg-white border-b border-[#E8E1EF] px-5 py-4 flex flex-col gap-3 shadow-lg animate-fadeIn">
-          {navItems.map((item) => (
-            <button
-              key={item.name}
-              onClick={() => {
-                setActiveNav(item.name);
-                setMobileMenuOpen(false);
-              }}
-              className={`text-left text-sm py-2 font-medium ${
-                activeNav === item.name ? 'text-[#6722A0] font-bold' : 'text-[#241532]'
-              }`}
-            >
-              {item.name}
-            </button>
-          ))}
+        <div className="sm:hidden bg-white/95 backdrop-blur-xl border-b border-[#E8E1EF] px-5 py-4 flex flex-col gap-3 shadow-lg animate-fadeIn">
+          {navItems.map((item) => {
+            const active = isNavActive(item);
+            return (
+              <button
+                key={item.name}
+                type="button"
+                onClick={() => handleNavClick(item)}
+                className={`text-left text-sm py-2 font-medium ${
+                  active ? 'text-[#6722A0] font-bold' : 'text-[#241532]'
+                }`}
+              >
+                {item.name}
+              </button>
+            );
+          })}
           <div className="pt-3 border-t border-[#E8E1EF] flex items-center gap-3">
             <button className="flex-1 py-2 rounded-full border border-[#E8E1EF] text-xs font-semibold text-[#241532] text-center">
               Login
             </button>
-            <button className="flex-1 py-2 rounded-full bg-[#6722A0] text-white text-xs font-semibold text-center shadow-sm">
+            <button className="flex-1 py-2 rounded-full bg-[#6722A0] text-white text-xs font-semibold text-center">
               My Bookings
             </button>
           </div>
