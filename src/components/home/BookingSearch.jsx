@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { MapPin, Calendar, Film, ChevronDown, Check } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const BookingSearch = ({ onSearch }) => {
   const [city, setCity] = useState('Bengaluru');
@@ -24,7 +25,12 @@ const BookingSearch = ({ onSearch }) => {
   };
 
   return (
-    <div className="relative z-30 max-w-4xl mx-auto px-4 -mt-10 sm:-mt-12">
+    <motion.div 
+      initial={{ opacity: 0, y: 25 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.65, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
+      className="relative z-30 max-w-4xl mx-auto px-4 -mt-10 sm:-mt-12"
+    >
       {/* Glass Material A: Premium Frosted Glass Floating Card */}
       <div 
         className="rounded-2xl sm:rounded-full p-2.5 sm:p-2.5 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2 transition-all duration-300 hover:-translate-y-0.5"
@@ -221,7 +227,7 @@ const BookingSearch = ({ onSearch }) => {
         </div>
 
       </div>
-    </div>
+    </motion.div>
   );
 };
 

@@ -3,8 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { EVENT_CATEGORIES, EVENT_PACKAGES } from '../data/eventsData';
 import { useBooking } from '../context/BookingContext';
+import PageBackground from '../components/common/PageBackground';
+import eventProposalHero from '../assets/images/event_proposal_hero.jpg';
 import { Heart, Sparkles, ArrowRight, Calendar, Users, Music, Gift, Check, ShieldCheck } from 'lucide-react';
-import eventMarryMe from '../assets/images/event_marryme_hd.png';
 
 const Events = () => {
   const navigate = useNavigate();
@@ -15,65 +16,105 @@ const Events = () => {
     navigate('/events/slots');
   };
 
-  return (
-    <div className="w-full min-h-[calc(100vh-74px)] bg-[#FAF8FE] relative py-8 sm:py-12 overflow-hidden">
-      {/* Background ambient lighting */}
-      <div className="absolute top-10 right-1/4 w-[600px] h-[600px] bg-[#EC4899]/6 rounded-full blur-[140px] pointer-events-none -z-10" />
-      <div className="absolute top-1/2 left-10 w-[500px] h-[500px] bg-[#9B4BC5]/6 rounded-full blur-[130px] pointer-events-none -z-10" />
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.2,
+      },
+    },
+  };
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  const cardVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] },
+    },
+  };
+
+  return (
+    <div className="w-full min-h-[calc(100vh-74px)] relative py-8 sm:py-12 overflow-hidden">
+      {/* Dedicated Romantic Celebration Background */}
+      <PageBackground variant="events" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Hero Section Directly Matching Reference Bottom-Left Preview */}
         <motion.div
-          initial={{ opacity: 0, y: 15 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="relative w-full rounded-3xl overflow-hidden border border-white/80 shadow-[0_20px_50px_rgba(103,34,160,0.12)] bg-[#1a0c24] text-white mb-14"
+          transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+          className="relative w-full rounded-3xl overflow-hidden border border-white/80 shadow-[0_24px_60px_rgba(244,63,94,0.14)] bg-[#1a0c24] text-white mb-14"
         >
-          {/* Hero MarryMe Cinema Image */}
+          {/* Hero Cinema Image */}
           <div className="absolute inset-0">
             <img
-              src={eventMarryMe}
-              alt="Romantic Private Cinema Hall with Marry Me Neon Lights"
-              className="w-full h-full object-cover object-center filter brightness-[0.85]"
+              src={eventProposalHero}
+              alt="Romantic Private Cinema Hall with Illuminated Proposal Lights"
+              className="w-full h-full object-cover object-center filter brightness-[0.85] scale-100 hover:scale-105 transition-transform duration-1000 ease-out"
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-[#1a0c24] via-[#1a0c24]/75 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#1a0c24] via-[#1a0c24]/80 to-transparent" />
             <div className="absolute inset-0 bg-gradient-to-t from-[#1a0c24] via-transparent to-black/20" />
+            <div className="absolute top-0 inset-x-0 h-24 bg-gradient-to-b from-white/10 to-transparent pointer-events-none" />
           </div>
 
           <div className="relative z-10 p-6 sm:p-10 lg:p-14 max-w-xl min-h-[380px] sm:min-h-[440px] flex flex-col justify-end">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-xs font-semibold text-[#F3D9ED] mb-4 w-fit">
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.45, delay: 0.2 }}
+              className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-xs font-semibold text-[#F3D9ED] mb-4 w-fit shadow-xs"
+            >
               <Heart className="w-3.5 h-3.5 text-[#EC4899] fill-[#EC4899]" />
               <span>Private Celebrations & Intermission Suites</span>
-            </div>
+            </motion.div>
 
-            <h1 className="font-display font-black text-3xl sm:text-5xl lg:text-[52px] leading-[1.08] tracking-tight text-white drop-shadow-md">
+            <motion.h1 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="font-display font-black text-3xl sm:text-5xl lg:text-[52px] leading-[1.08] tracking-tight text-white drop-shadow-md"
+            >
               Your Moments<br />
               <span className="text-[#F3D9ED] bg-gradient-to-r from-[#F3D9ED] via-white to-[#FCE7DF] bg-clip-text text-transparent">
                 Deserve the Big Screen
               </span>
-            </h1>
+            </motion.h1>
 
-            <p className="mt-4 text-xs sm:text-sm text-white/90 font-normal max-w-md leading-relaxed">
+            <motion.p 
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.45 }}
+              className="mt-4 text-xs sm:text-sm text-white/90 font-normal max-w-md leading-relaxed"
+            >
               Celebrate your special occasions in our premium cinema hall during scheduled break-time slots.
-            </p>
+            </motion.p>
 
-            <div className="mt-8">
+            <motion.div 
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.55 }}
+              className="mt-8"
+            >
               <button
                 onClick={() => navigate('/events/categories')}
-                className="px-8 py-3.5 rounded-full bg-[#6722A0] hover:bg-[#521782] text-white font-semibold text-xs shadow-[0_6px_20px_rgba(103,34,160,0.4)] flex items-center gap-2 transition-all hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
+                className="px-8 py-3.5 rounded-full bg-[#6722A0] hover:bg-[#521782] text-white font-semibold text-xs shadow-[0_6px_20px_rgba(103,34,160,0.4)] flex items-center gap-2 transition-all hover:scale-[1.03] active:scale-[0.98] cursor-pointer"
               >
                 <span>Explore Events</span>
                 <ArrowRight className="w-4 h-4 ml-0.5" />
               </button>
-            </div>
+            </motion.div>
           </div>
         </motion.div>
 
         {/* 4 Event Category Cards Row Matching Reference Bottom Bar */}
         <div className="mb-16">
           <div className="text-center max-w-xl mx-auto mb-8">
-            <h2 className="font-display font-extrabold text-2xl sm:text-3xl text-[#241532]">
+            <h2 className="font-display font-extrabold text-2xl sm:text-3xl text-[#241532] tracking-tight">
               Choose Your Celebration
             </h2>
             <p className="text-xs text-[#746A7D] mt-1">
@@ -81,21 +122,27 @@ const Events = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {EVENT_CATEGORIES.map((cat, index) => (
+          <motion.div 
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5"
+          >
+            {EVENT_CATEGORIES.map((cat) => (
               <motion.div
                 key={cat.id}
+                variants={cardVariants}
                 whileHover={{ y: -4 }}
                 transition={{ duration: 0.2 }}
                 onClick={() => handleSelectCategory(cat.id)}
-                className="bg-white/80 backdrop-blur-md rounded-2xl p-3 border border-[#E8E1EF] shadow-sm hover:shadow-lg transition-all cursor-pointer flex flex-col justify-between group"
+                className="glass-reflective rounded-2xl p-3.5 transition-all cursor-pointer flex flex-col justify-between group shadow-sm hover:shadow-[0_16px_36px_rgba(244,63,94,0.12)]"
               >
                 <div>
-                  <div className="relative w-full h-32 rounded-xl overflow-hidden mb-3">
+                  <div className="relative w-full h-36 rounded-xl overflow-hidden mb-3 border border-white/80 shadow-xs">
                     <img
                       src={cat.image}
                       alt={cat.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
                     />
                     <div className="absolute top-2 right-2 px-2.5 py-0.5 rounded-full bg-black/60 backdrop-blur-md text-[10px] font-bold text-white">
                       From ₹{cat.startingPrice.toLocaleString()}
@@ -116,14 +163,19 @@ const Events = () => {
                 </div>
               </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
 
         {/* Benefits of Private Cinema Celebrations */}
-        <div className="bg-white/70 backdrop-blur-xl rounded-3xl p-8 sm:p-12 border border-white/80 shadow-[0_12px_36px_rgba(103,34,160,0.04)] mb-16">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.55, delay: 0.3 }}
+          className="glass-reflective rounded-3xl p-8 sm:p-12 mb-16"
+        >
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="flex items-start gap-4">
-              <div className="w-12 h-12 rounded-2xl bg-[#F5F0FC] text-[#6722A0] flex items-center justify-center flex-shrink-0 shadow-xs">
+              <div className="w-12 h-12 rounded-2xl bg-[#F5F0FC] text-[#6722A0] flex items-center justify-center flex-shrink-0 shadow-xs border border-white">
                 <Sparkles className="w-6 h-6" />
               </div>
               <div>
@@ -135,7 +187,7 @@ const Events = () => {
             </div>
 
             <div className="flex items-start gap-4">
-              <div className="w-12 h-12 rounded-2xl bg-[#FDF1F7] text-[#EC4899] flex items-center justify-center flex-shrink-0 shadow-xs">
+              <div className="w-12 h-12 rounded-2xl bg-[#FDF1F7] text-[#EC4899] flex items-center justify-center flex-shrink-0 shadow-xs border border-white">
                 <Heart className="w-6 h-6" />
               </div>
               <div>
@@ -147,7 +199,7 @@ const Events = () => {
             </div>
 
             <div className="flex items-start gap-4">
-              <div className="w-12 h-12 rounded-2xl bg-[#FFF8E7] text-[#D97706] flex items-center justify-center flex-shrink-0 shadow-xs">
+              <div className="w-12 h-12 rounded-2xl bg-[#FFF8E7] text-[#D97706] flex items-center justify-center flex-shrink-0 shadow-xs border border-white">
                 <Gift className="w-6 h-6" />
               </div>
               <div>
@@ -158,12 +210,12 @@ const Events = () => {
               </div>
             </div>
           </div>
-        </div>
+        </motion.div>
 
         {/* Available Packages Preview */}
         <div>
           <div className="text-center max-w-xl mx-auto mb-8">
-            <h2 className="font-display font-extrabold text-2xl sm:text-3xl text-[#241532]">
+            <h2 className="font-display font-extrabold text-2xl sm:text-3xl text-[#241532] tracking-tight">
               Celebration Packages
             </h2>
             <p className="text-xs text-[#746A7D] mt-1">
@@ -177,8 +229,8 @@ const Events = () => {
                 key={pkg.id}
                 className={`rounded-3xl p-6 border transition-all flex flex-col justify-between ${
                   pkg.popular
-                    ? 'bg-gradient-to-b from-[#FFF9EE] via-white to-white border-[#EAB308] shadow-[0_16px_40px_rgba(234,179,8,0.15)] scale-[1.02]'
-                    : 'bg-white/80 border-[#E8E1EF] shadow-sm'
+                    ? 'bg-gradient-to-b from-[#FFF9EE] via-white to-white border-[#EAB308] shadow-[0_16px_40px_rgba(234,179,8,0.15)] ring-2 ring-[#EAB308]/40 scale-[1.02]'
+                    : 'glass-reflective shadow-sm'
                 }`}
               >
                 <div>
@@ -213,7 +265,7 @@ const Events = () => {
                     onClick={() => {
                       navigate('/events/slots');
                     }}
-                    className="w-full py-2.5 rounded-full bg-[#6722A0] hover:bg-[#521782] text-white text-xs font-semibold shadow-md flex items-center justify-center gap-1.5 transition-all cursor-pointer"
+                    className="w-full py-2.5 rounded-full bg-[#6722A0] hover:bg-[#521782] text-white text-xs font-semibold shadow-md flex items-center justify-center gap-1.5 transition-all cursor-pointer hover:scale-[1.02]"
                   >
                     <span>Book {pkg.name}</span>
                     <ArrowRight className="w-3.5 h-3.5" />

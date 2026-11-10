@@ -6,6 +6,7 @@ import { useBooking } from '../context/BookingContext';
 import MovieCard from '../components/movies/MovieCard';
 import MovieCategoryTabs from '../components/movies/MovieCategoryTabs';
 import MovieFilters from '../components/movies/MovieFilters';
+import PageBackground from '../components/common/PageBackground';
 import { Film } from 'lucide-react';
 
 const Movies = () => {
@@ -52,18 +53,19 @@ const Movies = () => {
       }
 
       // 2. Language check
-      if (filters.language !== 'All Languages' && movie.language !== filters.language) {
-        return false;
+      if (filters.language !== 'All Languages') {
+        if (movie.language !== filters.language) return false;
       }
 
       // 3. Genre check
-      if (filters.genre !== 'All Genres' && movie.genre !== filters.genre) {
-        return false;
+      if (filters.genre !== 'All Genres') {
+        if (movie.genre !== filters.genre) return false;
       }
 
       // 4. Screen check
       if (filters.screen !== 'All Screens') {
-        const matchesScreen = movie.screens?.some((s) => s.includes(filters.screen.split(' ')[0]));
+        const screenKey = filters.screen.split(' ')[0]; // 'Screen 1', 'Screen 2', etc.
+        const matchesScreen = movie.screens?.some(s => s.includes(screenKey));
         if (!matchesScreen) return false;
       }
 
@@ -95,45 +97,78 @@ const Movies = () => {
     'recommended': 'Recommended For You',
   };
 
+  const gridContainerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.08,
+      },
+    },
+  };
+
+  const cardItemVariants = {
+    hidden: { opacity: 0, y: 20, scale: 0.96 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: { duration: 0.45, ease: [0.16, 1, 0.3, 1] },
+    },
+  };
+
   return (
-    <div className="w-full min-h-[calc(100vh-74px)] bg-[#FCFBFE] relative overflow-hidden py-8 sm:py-12">
-      {/* Cinematic Ambient Glow Background */}
-      <div className="absolute top-0 right-1/4 w-[600px] h-[600px] bg-[#9B4BC5]/6 rounded-full blur-[140px] pointer-events-none"></div>
-      <div className="absolute top-1/3 left-10 w-[500px] h-[500px] bg-[#3B82F6]/5 rounded-full blur-[130px] pointer-events-none"></div>
+    <div className="w-full min-h-[calc(100vh-74px)] relative overflow-hidden py-8 sm:py-12">
+      {/* Dedicated Rich Glassmorphic Background for Movies Discovery */}
+      <PageBackground variant="movies" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Page Header Area with Category Tabs */}
         <motion.div 
-          initial={{ opacity: 0, y: -15 }}
+          initial={{ opacity: 0, y: -18 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
           className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-2"
         >
-          {/* Left Title & Subtitle */}
+          {/* Left Title & Subtitle with delayed reveal */}
           <div>
-            <h1 className="font-display font-black text-3xl sm:text-4xl lg:text-[42px] text-[#241532] tracking-tight leading-none">
+            <motion.h1 
+              initial={{ opacity: 0, x: -15 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5 }}
+              className="font-display font-black text-3xl sm:text-4xl lg:text-[42px] text-[#241532] tracking-tight leading-none"
+            >
               {categoryHeadings[activeCategory] || 'Now Showing'}
-            </h1>
-            <p className="mt-2.5 text-xs sm:text-sm text-[#746A7D] font-normal">
+            </motion.h1>
+            <motion.p 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="mt-2.5 text-xs sm:text-sm text-[#746A7D] font-normal"
+            >
               Blockbuster movies at your favourite multiplex
-            </p>
+            </motion.p>
           </div>
 
           {/* Right Category Tabs */}
-          <div>
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.25 }}
+          >
             <MovieCategoryTabs
               activeCategory={activeCategory}
               onSelectCategory={setActiveCategory}
             />
-          </div>
+          </motion.div>
         </motion.div>
 
         {/* Filter and Sorting Toolbar */}
         <motion.div
-          initial={{ opacity: 0, y: 10 }}
+          initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.1 }}
+          transition={{ duration: 0.45, delay: 0.3 }}
         >
           <MovieFilters
             filters={filters}
@@ -145,18 +180,18 @@ const Movies = () => {
         {/* Movies Grid (5 columns on desktop matching reference) */}
         {filteredMovies.length > 0 ? (
           <motion.div
-            layout
+            variants={gridContainerVariants}
+            initial="hidden"
+            animate="visible"
             className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5 sm:gap-6 mt-4"
           >
-            <AnimatePresence>
-              {filteredMovies.map((movie, index) => (
+            <AnimatePresence mode="popLayout">
+              {filteredMovies.map((movie) => (
                 <motion.div
                   key={movie.id}
                   layout
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
+                  variants={cardItemVariants}
                   exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.35, delay: index * 0.05 }}
                 >
                   <MovieCard
                     movie={movie}
@@ -168,7 +203,7 @@ const Movies = () => {
           </motion.div>
         ) : (
           /* Empty State */
-          <div className="py-20 text-center bg-white/50 backdrop-blur-md rounded-3xl border border-[#E8E1EF] max-w-xl mx-auto my-12 p-8">
+          <div className="py-20 text-center glass-frosted rounded-3xl max-w-xl mx-auto my-12 p-8">
             <Film className="w-12 h-12 text-[#9B4BC5] mx-auto mb-3 opacity-60" />
             <h3 className="font-display font-bold text-lg text-[#241532]">No movies found</h3>
             <p className="text-xs text-[#746A7D] mt-1 max-w-sm mx-auto">

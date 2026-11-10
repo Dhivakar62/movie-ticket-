@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { EVENT_CATEGORIES } from '../data/eventsData';
 import { useBooking } from '../context/BookingContext';
+import PageBackground from '../components/common/PageBackground';
 import { Heart, Sparkles, Check, ArrowRight } from 'lucide-react';
 
 const EventCategorySelection = () => {
@@ -15,21 +16,29 @@ const EventCategorySelection = () => {
   };
 
   return (
-    <div className="w-full min-h-[calc(100vh-74px)] bg-[#FAF8FE] relative py-8 sm:py-12">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6">
+    <div className="w-full min-h-[calc(100vh-74px)] relative py-8 sm:py-12">
+      {/* Dedicated Celebration Background */}
+      <PageBackground variant="events" />
+
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 relative z-10">
         
         {/* Step Header */}
-        <div className="text-center max-w-xl mx-auto mb-10">
-          <span className="text-xs font-bold uppercase tracking-wider text-[#6722A0] bg-[#F5F0FC] px-3.5 py-1 rounded-full border border-[#E8E1EF]">
+        <motion.div 
+          initial={{ opacity: 0, y: -15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="text-center max-w-xl mx-auto mb-10"
+        >
+          <span className="text-xs font-bold uppercase tracking-wider text-[#6722A0] bg-white/70 backdrop-blur-md px-3.5 py-1 rounded-full border border-white/80 shadow-xs">
             Step 1 • Event Theme
           </span>
-          <h1 className="font-display font-black text-2xl sm:text-3xl text-[#241532] mt-2">
+          <h1 className="font-display font-black text-2xl sm:text-3xl text-[#241532] mt-2 tracking-tight">
             Select Your Event Category
           </h1>
           <p className="text-xs text-[#746A7D] mt-1">
             Choose the type of celebration you want to curate inside DreamCine's luxury cinema halls.
           </p>
-        </div>
+        </motion.div>
 
         {/* 4 Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -45,12 +54,12 @@ const EventCategorySelection = () => {
                 className={`rounded-3xl p-6 border transition-all cursor-pointer flex flex-col justify-between ${
                   isSelected
                     ? 'bg-gradient-to-b from-[#FAF5FF] via-white to-white border-[#6722A0] shadow-[0_16px_40px_rgba(103,34,160,0.15)] ring-2 ring-[#6722A0]/20'
-                    : 'bg-white/80 border-[#E8E1EF] shadow-sm hover:border-[#6722A0]/40'
+                    : 'glass-reflective border-white/90 shadow-sm hover:border-[#6722A0]/40 hover:-translate-y-1'
                 }`}
               >
                 <div>
                   {/* Category Image */}
-                  <div className="relative w-full h-44 rounded-2xl overflow-hidden mb-4">
+                  <div className="relative w-full h-44 rounded-2xl overflow-hidden mb-4 border border-white/80 shadow-xs">
                     <img src={cat.heroBanner || cat.image} alt={cat.title} className="w-full h-full object-cover" />
                     <div className="absolute top-3 right-3 px-3 py-1 rounded-full bg-black/60 backdrop-blur-md text-xs font-bold text-white">
                       From ₹{cat.startingPrice.toLocaleString()}

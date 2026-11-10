@@ -1,5 +1,6 @@
 import React from 'react';
 import { Film, Star, Gift } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const FeatureHighlights = () => {
   const features = [
@@ -29,23 +30,38 @@ const FeatureHighlights = () => {
     },
   ];
 
+  const containerVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        delay: 0.6,
+        staggerChildren: 0.15,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 15 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] },
+    },
+  };
+
   return (
     <section className="relative w-full pt-8 pb-16">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 relative z-10">
         
         {/* Glass Material B: Layered Transparent Glass Surface */}
-        <div 
-          className="rounded-3xl px-6 py-5 sm:px-10 sm:py-6 transition-all duration-300 hover:shadow-[0_24px_60px_-15px_rgba(103,34,160,0.14)] relative overflow-hidden"
-          style={{
-            background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.74) 0%, rgba(246, 240, 252, 0.58) 50%, rgba(255, 255, 255, 0.7) 100%)',
-            backdropFilter: 'blur(24px) saturate(180%)',
-            border: '1.5px solid rgba(255, 255, 255, 0.92)',
-            boxShadow: `
-              inset 0 1.5px 3px rgba(255, 255, 255, 0.95),
-              inset 0 -1px 2px rgba(183, 139, 229, 0.08),
-              0 20px 50px -15px rgba(103, 34, 160, 0.1)
-            `
-          }}
+        <motion.div 
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="glass-reflective rounded-3xl px-6 py-5 sm:px-10 sm:py-6 transition-all duration-300 hover:shadow-[0_24px_60px_-15px_rgba(103,34,160,0.14)] relative overflow-hidden"
         >
           {/* Subtle Top-Edge Specular Glass Glint */}
           <div className="absolute top-0 inset-x-0 h-[1.5px] bg-gradient-to-r from-transparent via-white to-transparent opacity-90 pointer-events-none" />
@@ -54,8 +70,9 @@ const FeatureHighlights = () => {
             {features.map((item) => {
               const Icon = item.icon;
               return (
-                <div
+                <motion.div
                   key={item.id}
+                  variants={itemVariants}
                   className="flex items-center gap-3.5 group cursor-pointer transition-transform hover:-translate-y-0.5"
                 >
                   {/* Rounded Crystal Icon Badge with Specular Border */}
@@ -74,11 +91,11 @@ const FeatureHighlights = () => {
                       {item.subtitle}
                     </p>
                   </div>
-                </div>
+                </motion.div>
               );
             })}
           </div>
-        </div>
+        </motion.div>
 
       </div>
     </section>

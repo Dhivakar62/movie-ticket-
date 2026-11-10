@@ -2,6 +2,10 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useBooking } from '../context/BookingContext';
+import PageBackground from '../components/common/PageBackground';
+import screenDolby from '../assets/images/screen_dolby.jpg';
+import screenGold from '../assets/images/screen_gold.jpg';
+import screenExecutive from '../assets/images/screen_executive.jpg';
 import { Crown, Check, ArrowRight, Sparkles, Diamond, Shield } from 'lucide-react';
 
 const TicketSelection = () => {
@@ -27,7 +31,7 @@ const TicketSelection = () => {
       price: 150,
       icon: Shield,
       features: ['Standard Seating', 'Good View', 'Dolby Digital Sound'],
-      bgImage: 'https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?auto=format&fit=crop&w=400&q=80',
+      bgImage: screenDolby,
     },
     {
       id: 'gold',
@@ -36,15 +40,15 @@ const TicketSelection = () => {
       icon: Crown,
       isPopular: true,
       features: ['Premium Seating', 'Better View', 'Enhanced Ergonomic Comfort'],
-      bgImage: 'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=400&q=80',
+      bgImage: screenGold,
     },
     {
       id: 'platinum',
       name: 'Platinum Class',
       price: 400,
       icon: Diamond,
-      features: ['Luxury Seating', 'Exclusive View', 'Full Leather Recliners & Food Service'],
-      bgImage: 'https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&w=400&q=80',
+      features: ['Luxury Seating', 'Exclusive View', 'Full Leather Recliners & Service'],
+      bgImage: screenExecutive,
     },
   ];
 
@@ -66,17 +70,45 @@ const TicketSelection = () => {
   const currentPrice = selectedCategory?.price || 250;
   const totalPrice = ticketQuantity * currentPrice;
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.15,
+      },
+    },
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] },
+    },
+  };
+
   return (
-    <div className="w-full min-h-[calc(100vh-74px)] bg-[#FAF8FE] relative py-8 sm:py-12">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6">
+    <div className="w-full min-h-[calc(100vh-74px)] relative py-8 sm:py-12">
+      {/* Dedicated Royal Tickets Background */}
+      <PageBackground variant="tickets" />
+
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 relative z-10">
         
         {/* Header directly matching reference */}
-        <div className="flex items-center justify-between mb-8">
+        <motion.div 
+          initial={{ opacity: 0, y: -15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="flex items-center justify-between mb-8"
+        >
           <div>
-            <span className="text-xs font-bold uppercase tracking-wider text-[#6722A0] bg-[#F5F0FC] px-3.5 py-1 rounded-full border border-[#E8E1EF]">
+            <span className="text-xs font-bold uppercase tracking-wider text-[#6722A0] bg-white/70 backdrop-blur-md px-3.5 py-1 rounded-full border border-white/80 shadow-xs">
               Step 3 • Category & Quantity
             </span>
-            <h1 className="font-display font-black text-2xl sm:text-3xl text-[#241532] mt-2">
+            <h1 className="font-display font-black text-2xl sm:text-3xl text-[#241532] mt-2 tracking-tight">
               Choose Ticket Category
             </h1>
             <p className="text-xs text-[#746A7D]">
@@ -84,26 +116,32 @@ const TicketSelection = () => {
             </p>
           </div>
 
-          <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#EAB308]/20 to-[#EAB308]/40 flex items-center justify-center text-[#EAB308] shadow-sm">
+          <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#EAB308]/20 via-[#FEF3C7] to-[#EAB308]/40 flex items-center justify-center text-[#EAB308] shadow-md border border-white/80">
             <Crown className="w-6 h-6 fill-current" />
           </div>
-        </div>
+        </motion.div>
 
         {/* 3 Categories Cards Matching Reference */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+        <motion.div 
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10"
+        >
           {categories.map((cat) => {
             const isSelected = selectedCategory?.id === cat.id;
             const Icon = cat.icon;
             return (
               <motion.div
                 key={cat.id}
+                variants={cardVariants}
                 whileHover={{ y: -4 }}
                 transition={{ duration: 0.2 }}
                 onClick={() => setSelectedCategory(cat)}
                 className={`relative rounded-3xl p-5 border transition-all cursor-pointer flex flex-col justify-between ${
                   isSelected
-                    ? 'bg-gradient-to-b from-[#FFF9EE] via-white to-white border-[#EAB308] shadow-[0_16px_40px_rgba(234,179,8,0.2)]'
-                    : 'bg-white/80 border-[#E8E1EF] shadow-sm hover:border-[#6722A0]/40'
+                    ? 'bg-gradient-to-b from-[#FFF9EE] via-white to-white border-[#EAB308] shadow-[0_18px_45px_rgba(234,179,8,0.22)] ring-2 ring-[#EAB308]/40'
+                    : 'glass-reflective border-white/90 shadow-sm hover:border-[#6722A0]/40'
                 }`}
               >
                 {/* Popular Crown Badge for Gold */}
@@ -116,9 +154,9 @@ const TicketSelection = () => {
 
                 <div>
                   {/* Category Image Preview */}
-                  <div className="relative w-full h-32 rounded-2xl overflow-hidden mb-4">
+                  <div className="relative w-full h-32 rounded-2xl overflow-hidden mb-4 border border-white/80 shadow-xs">
                     <img src={cat.bgImage} alt={cat.name} className="w-full h-full object-cover" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent flex items-end p-3">
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-3">
                       <div className="flex items-center gap-1.5 text-white">
                         <Icon className="w-4 h-4 text-[#F2CA50]" />
                         <span className="font-display font-bold text-sm">{cat.name}</span>
@@ -161,10 +199,15 @@ const TicketSelection = () => {
               </motion.div>
             );
           })}
-        </div>
+        </motion.div>
 
         {/* Ticket Quantity Selection Panel */}
-        <div className="bg-white/80 backdrop-blur-xl rounded-3xl p-6 sm:p-8 border border-white/90 shadow-[0_12px_36px_rgba(103,34,160,0.06)]">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.55, delay: 0.35 }}
+          className="glass-reflective rounded-3xl p-6 sm:p-8"
+        >
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
             <div>
               <h3 className="font-display font-bold text-base text-[#241532]">Select Number of Tickets</h3>
@@ -222,13 +265,13 @@ const TicketSelection = () => {
 
             <button
               onClick={() => navigate('/booking/seats')}
-              className="w-full sm:w-auto px-8 py-3 rounded-full bg-[#6722A0] hover:bg-[#521782] text-white text-xs font-semibold shadow-md flex items-center justify-center gap-2 cursor-pointer transition-all hover:scale-[1.02]"
+              className="w-full sm:w-auto px-8 py-3 rounded-full bg-[#6722A0] hover:bg-[#521782] text-white text-xs font-semibold shadow-[0_6px_20px_rgba(103,34,160,0.3)] flex items-center justify-center gap-2 cursor-pointer transition-all hover:scale-[1.02]"
             >
               <span>Continue to Seat Selection</span>
               <ArrowRight className="w-4 h-4" />
             </button>
           </div>
-        </div>
+        </motion.div>
 
       </div>
     </div>

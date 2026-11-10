@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useBooking } from '../context/BookingContext';
+import PageBackground from '../components/common/PageBackground';
 import { Ticket, PartyPopper, Calendar, Clock, Film, QrCode, X, Download, ArrowRight } from 'lucide-react';
 
 const MyBookings = () => {
   const navigate = useNavigate();
-  const { bookingsList, eventsList, setBookingsList } = useBooking();
+  const { bookingsList, eventsList } = useBooking();
 
-  const [activeTab, setActiveTab] = useState('all'); // 'all' | 'upcoming' | 'completed' | 'cancelled'
+  const [activeTab, setActiveTab] = useState('all'); // 'all' | 'confirmed' | 'completed' | 'cancelled'
   const [selectedTicketModal, setSelectedTicketModal] = useState(null);
 
   // Combine items
@@ -22,13 +24,21 @@ const MyBookings = () => {
   });
 
   return (
-    <div className="w-full min-h-[calc(100vh-74px)] bg-[#FAF8FE] relative py-8 sm:py-12">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6">
+    <div className="w-full min-h-[calc(100vh-74px)] relative py-8 sm:py-12">
+      {/* Dedicated Executive Dashboard Background */}
+      <PageBackground variant="dashboard" />
+
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 relative z-10">
         
         {/* Header */}
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
+        <motion.div 
+          initial={{ opacity: 0, y: -15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8"
+        >
           <div>
-            <h1 className="font-display font-black text-2xl sm:text-3xl text-[#241532]">
+            <h1 className="font-display font-black text-2xl sm:text-3xl text-[#241532] tracking-tight">
               My Bookings & Reservations
             </h1>
             <p className="text-xs text-[#746A7D] mt-0.5">
@@ -38,14 +48,19 @@ const MyBookings = () => {
 
           <button
             onClick={() => navigate('/movies')}
-            className="px-5 py-2.5 rounded-full bg-[#6722A0] text-white text-xs font-semibold hover:bg-[#521782] transition-colors shadow-xs"
+            className="px-5 py-2.5 rounded-full bg-[#6722A0] text-white text-xs font-semibold hover:bg-[#521782] transition-all shadow-md hover:scale-[1.02] cursor-pointer"
           >
             Book Another Movie
           </button>
-        </div>
+        </motion.div>
 
         {/* Tabs: All, Upcoming, Completed, Cancelled */}
-        <div className="flex items-center gap-2 border-b border-[#E8E1EF] pb-4 mb-8 overflow-x-auto no-scrollbar">
+        <motion.div 
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.45, delay: 0.15 }}
+          className="flex items-center gap-2 border-b border-[#E8E1EF] pb-4 mb-8 overflow-x-auto no-scrollbar"
+        >
           {[
             { id: 'all', label: `All (${allItems.length})` },
             { id: 'confirmed', label: 'Upcoming' },
@@ -58,38 +73,41 @@ const MyBookings = () => {
               className={`px-4 sm:px-5 py-2 rounded-full text-xs font-semibold transition-all cursor-pointer whitespace-nowrap ${
                 activeTab === tab.id
                   ? 'bg-[#6722A0] text-white shadow-xs'
-                  : 'bg-white/80 hover:bg-[#F5F0FC] text-[#241532] border border-[#E8E1EF]'
+                  : 'glass-frosted hover:bg-white text-[#241532]'
               }`}
             >
               {tab.label}
             </button>
           ))}
-        </div>
+        </motion.div>
 
         {/* Bookings List */}
         {filteredItems.length > 0 ? (
           <div className="space-y-4">
-            {filteredItems.map((item) => (
-              <div
+            {filteredItems.map((item, idx) => (
+              <motion.div
                 key={item.bookingId}
-                className="bg-white/90 backdrop-blur-md rounded-3xl p-5 sm:p-6 border border-white/90 shadow-sm hover:shadow-md transition-all flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: idx * 0.06 }}
+                className="glass-reflective rounded-3xl p-5 sm:p-6 transition-all flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
               >
                 <div className="flex items-start sm:items-center gap-4">
                   {item.itemKind === 'movie' ? (
                     <img
                       src={item.poster}
                       alt={item.movieTitle}
-                      className="w-16 h-22 object-cover rounded-xl shadow-xs flex-shrink-0"
+                      className="w-16 h-22 object-cover rounded-xl shadow-xs flex-shrink-0 border border-white/80"
                     />
                   ) : (
-                    <div className="w-16 h-20 rounded-xl bg-[#FDF1F7] text-[#EC4899] flex items-center justify-center flex-shrink-0 shadow-xs">
+                    <div className="w-16 h-20 rounded-xl bg-[#FDF1F7] text-[#EC4899] flex items-center justify-center flex-shrink-0 shadow-xs border border-white">
                       <PartyPopper className="w-8 h-8" />
                     </div>
                   )}
 
                   <div>
                     <div className="flex items-center gap-2">
-                      <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full uppercase ${
+                      <span className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase ${
                         item.status === 'confirmed'
                           ? 'bg-emerald-100 text-emerald-800'
                           : item.status === 'completed'
@@ -123,17 +141,17 @@ const MyBookings = () => {
 
                   <button
                     onClick={() => setSelectedTicketModal(item)}
-                    className="px-5 py-2.5 rounded-full bg-[#6722A0] hover:bg-[#521782] text-white text-xs font-semibold shadow-xs transition-all cursor-pointer flex items-center gap-1.5"
+                    className="px-5 py-2.5 rounded-full bg-[#6722A0] hover:bg-[#521782] text-white text-xs font-semibold shadow-xs transition-all cursor-pointer flex items-center gap-1.5 hover:scale-[1.02]"
                   >
                     <span>View Pass</span>
                     <ArrowRight className="w-3.5 h-3.5" />
                   </button>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         ) : (
-          <div className="py-20 text-center bg-white/50 backdrop-blur-md rounded-3xl border border-[#E8E1EF] max-w-md mx-auto p-8">
+          <div className="py-20 text-center glass-frosted rounded-3xl max-w-md mx-auto p-8">
             <Ticket className="w-12 h-12 text-[#9B4BC5] mx-auto mb-3 opacity-60" />
             <h3 className="font-display font-bold text-lg text-[#241532]">No bookings found</h3>
             <p className="text-xs text-[#746A7D] mt-1">
@@ -147,7 +165,6 @@ const MyBookings = () => {
             </button>
           </div>
         )}
-
       </div>
 
       {/* Ticket Details Modal */}

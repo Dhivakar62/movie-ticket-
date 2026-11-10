@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useBooking } from '../context/BookingContext';
+import PageBackground from '../components/common/PageBackground';
 import { Calendar, Clock, Film, ArrowRight, ShieldCheck, Sparkles } from 'lucide-react';
 
 const ShowtimeSelection = () => {
@@ -40,29 +41,42 @@ const ShowtimeSelection = () => {
   };
 
   return (
-    <div className="w-full min-h-[calc(100vh-74px)] bg-[#FAF8FE] relative py-8 sm:py-12">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6">
+    <div className="w-full min-h-[calc(100vh-74px)] relative py-8 sm:py-12">
+      {/* Dedicated Rich Showtime Background */}
+      <PageBackground variant="showtime" />
+
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 relative z-10">
         
         {/* Step Indicator */}
-        <div className="text-center mb-8">
-          <span className="text-xs font-bold uppercase tracking-wider text-[#6722A0] bg-[#F5F0FC] px-3.5 py-1.5 rounded-full border border-[#E8E1EF]">
+        <motion.div 
+          initial={{ opacity: 0, y: -15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-8"
+        >
+          <span className="text-xs font-bold uppercase tracking-wider text-[#6722A0] bg-white/70 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/80 shadow-xs">
             Step 2 • Date & Showtimes
           </span>
-          <h1 className="font-display font-black text-3xl sm:text-4xl text-[#241532] mt-3">
+          <h1 className="font-display font-black text-3xl sm:text-4xl text-[#241532] mt-3 tracking-tight">
             Select Date & Showtime
           </h1>
           <p className="text-xs sm:text-sm text-[#746A7D] mt-1">
             {selectedMovie?.title || 'Kalki 2898 AD'} • {selectedScreen || 'Screen 1 (IMAX 4K Laser)'}
           </p>
-        </div>
+        </motion.div>
 
         {/* Selected Movie Summary Bar */}
-        <div className="bg-white/80 backdrop-blur-md rounded-2xl p-4 sm:p-5 border border-white/90 shadow-sm flex items-center justify-between gap-4 mb-8">
+        <motion.div 
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.15 }}
+          className="glass-reflective rounded-2xl p-4 sm:p-5 flex items-center justify-between gap-4 mb-8"
+        >
           <div className="flex items-center gap-3.5">
             <img
               src={selectedMovie?.poster}
               alt={selectedMovie?.title}
-              className="w-12 h-16 object-cover rounded-lg shadow-xs"
+              className="w-12 h-16 object-cover rounded-lg shadow-xs border border-white/80"
             />
             <div>
               <h3 className="font-display font-bold text-base text-[#241532]">{selectedMovie?.title}</h3>
@@ -76,10 +90,15 @@ const ShowtimeSelection = () => {
             <span className="text-[11px] text-[#746A7D] block">Auditorium</span>
             <span className="text-xs font-bold text-[#6722A0]">{selectedScreen}</span>
           </div>
-        </div>
+        </motion.div>
 
         {/* Horizontal Date Selector */}
-        <div className="mb-8">
+        <motion.div 
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.25 }}
+          className="mb-8"
+        >
           <h3 className="font-display font-bold text-sm text-[#241532] mb-3 flex items-center gap-2">
             <Calendar className="w-4 h-4 text-[#6722A0]" />
             <span>Choose Date</span>
@@ -94,8 +113,8 @@ const ShowtimeSelection = () => {
                   onClick={() => setSelectedDate(d.full)}
                   className={`flex flex-col items-center justify-center min-w-[85px] py-3 px-3 rounded-2xl text-center transition-all cursor-pointer ${
                     isSelected
-                      ? 'bg-[#6722A0] text-white shadow-md scale-105'
-                      : 'bg-white/80 hover:bg-[#F5F0FC] text-[#241532] border border-[#E8E1EF]'
+                      ? 'bg-[#6722A0] text-white shadow-[0_6px_20px_rgba(103,34,160,0.3)] scale-105'
+                      : 'glass-frosted hover:bg-white text-[#241532]'
                   }`}
                 >
                   <span className={`text-[11px] font-semibold ${isSelected ? 'text-white/80' : 'text-[#746A7D]'}`}>
@@ -108,10 +127,15 @@ const ShowtimeSelection = () => {
               );
             })}
           </div>
-        </div>
+        </motion.div>
 
         {/* Showtimes Grid */}
-        <div className="bg-white/80 backdrop-blur-xl rounded-3xl p-6 sm:p-8 border border-white/90 shadow-[0_12px_36px_rgba(103,34,160,0.06)]">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.55, delay: 0.35 }}
+          className="glass-reflective rounded-3xl p-6 sm:p-8"
+        >
           <div className="flex items-center justify-between mb-6">
             <h3 className="font-display font-bold text-base text-[#241532] flex items-center gap-2">
               <Clock className="w-4 h-4 text-[#6722A0]" />
@@ -129,8 +153,8 @@ const ShowtimeSelection = () => {
                   onClick={() => handleSelectShowtime(st.time)}
                   className={`p-4 rounded-2xl border text-left transition-all cursor-pointer group flex flex-col justify-between ${
                     isSelected
-                      ? 'bg-[#6722A0] border-[#6722A0] text-white shadow-md'
-                      : 'bg-white/90 border-[#E8E1EF] hover:border-[#6722A0] hover:bg-[#F5F0FC]'
+                      ? 'bg-[#6722A0] border-[#6722A0] text-white shadow-md scale-[1.02]'
+                      : 'bg-white/80 border-[#E8E1EF] hover:border-[#6722A0]/60 hover:bg-[#F5F0FC]/80'
                   }`}
                 >
                   <div className="flex items-center justify-between">
@@ -165,13 +189,13 @@ const ShowtimeSelection = () => {
 
             <button
               onClick={() => navigate('/booking/tickets')}
-              className="px-7 py-3 rounded-full bg-[#6722A0] hover:bg-[#521782] text-white text-xs font-semibold shadow-md flex items-center gap-2 cursor-pointer transition-all hover:scale-[1.02]"
+              className="px-7 py-3 rounded-full bg-[#6722A0] hover:bg-[#521782] text-white text-xs font-semibold shadow-[0_6px_20px_rgba(103,34,160,0.3)] flex items-center gap-2 cursor-pointer transition-all hover:scale-[1.02]"
             >
               <span>Continue to Tickets</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </button>
           </div>
-        </div>
+        </motion.div>
 
       </div>
     </div>

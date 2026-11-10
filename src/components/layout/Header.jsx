@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { ChevronDown, Search, Menu, X, User } from 'lucide-react';
-import avatarPriya from '../../assets/images/avatar_priya.png';
+import avatarPriya from '../../assets/images/avatar_priya_unsplash.jpg';
 
 const Header = () => {
   const navigate = useNavigate();
@@ -42,7 +42,7 @@ const Header = () => {
   };
 
   return (
-    <header className="sticky top-0 z-50 bg-white/85 backdrop-blur-md border-b border-[#E8E1EF]/80 shadow-[0_4px_20px_rgba(103,34,160,0.03)] transition-all">
+    <header className="sticky top-0 z-50 glass-frosted border-b border-[#E8E1EF]/80 shadow-[0_4px_20px_rgba(103,34,160,0.04)] transition-all">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-[74px] flex items-center justify-between">
         
         {/* Left: DreamCine Logo */}
@@ -114,7 +114,7 @@ const Header = () => {
             ) : (
               <button
                 onClick={() => setSearchOpen(true)}
-                className="w-9 h-9 rounded-full bg-[#F5F0FC] hover:bg-[#E9E5FA] border border-[#E8E1EF] flex items-center justify-center text-[#746A7D] hover:text-[#6722A0] transition-colors cursor-pointer"
+                className="w-9 h-9 rounded-full bg-white/70 hover:bg-[#F5F0FC] border border-[#E8E1EF] flex items-center justify-center text-[#746A7D] hover:text-[#6722A0] transition-colors cursor-pointer shadow-xs"
                 aria-label="Search"
               >
                 <Search className="w-4 h-4" />
@@ -122,12 +122,14 @@ const Header = () => {
             )}
           </div>
 
-          {/* Login / Dashboard Link */}
+          {/* Login / Dashboard Link with Priya Avatar */}
           <button 
             onClick={() => navigate('/dashboard')}
-            className="px-5 py-2 rounded-full border border-[#E8E1EF] hover:border-[#6722A0] text-[#241532] hover:text-[#6722A0] text-xs font-semibold bg-white hover:bg-[#F5F0FC] transition-all cursor-pointer flex items-center gap-1.5"
+            className="pl-2 pr-4 py-1.5 rounded-full border border-white/80 hover:border-[#6722A0] text-[#241532] hover:text-[#6722A0] text-xs font-semibold bg-white/80 backdrop-blur-md hover:bg-white transition-all cursor-pointer flex items-center gap-2 shadow-xs"
           >
-            <User className="w-3.5 h-3.5 text-[#6722A0]" />
+            <div className="w-6 h-6 rounded-full overflow-hidden border border-[#6722A0]/30 shadow-xs flex-shrink-0">
+              <img src={avatarPriya} alt="Priya" className="w-full h-full object-cover" />
+            </div>
             <span>Dashboard</span>
           </button>
 

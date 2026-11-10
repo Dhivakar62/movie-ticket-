@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useBooking } from '../context/BookingContext';
+import PageBackground from '../components/common/PageBackground';
 import { ArrowLeft, ArrowRight, Check, AlertCircle } from 'lucide-react';
 
 const SeatSelection = () => {
@@ -123,11 +124,19 @@ const SeatSelection = () => {
   const totalAmount = currentSelected.length * currentPrice;
 
   return (
-    <div className="w-full min-h-[calc(100vh-74px)] bg-[#FAF8FE] relative py-6 sm:py-10">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6">
+    <div className="w-full min-h-[calc(100vh-74px)] relative py-6 sm:py-10">
+      {/* Dedicated Seat Selection Background */}
+      <PageBackground variant="seats" />
+
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 relative z-10">
         
         {/* Breadcrumb Steps directly matching reference */}
-        <div className="bg-white/80 backdrop-blur-md rounded-2xl py-3 px-4 sm:px-6 border border-[#E8E1EF] shadow-xs mb-8">
+        <motion.div 
+          initial={{ opacity: 0, y: -12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.45 }}
+          className="glass-reflective rounded-2xl py-3 px-4 sm:px-6 mb-8"
+        >
           <div className="flex items-center justify-between text-xs font-semibold text-[#746A7D] overflow-x-auto no-scrollbar gap-4">
             <span className="flex items-center gap-1.5 text-emerald-700">
               <span className="w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center text-[10px] font-bold">1</span>
@@ -154,7 +163,7 @@ const SeatSelection = () => {
               <span>Seats</span>
             </span>
           </div>
-        </div>
+        </motion.div>
 
         {/* Notification Banner if partial selection */}
         {notification && (
@@ -165,9 +174,14 @@ const SeatSelection = () => {
         )}
 
         {/* Main Seat Map Arena */}
-        <div className="bg-white/85 backdrop-blur-xl rounded-3xl p-6 sm:p-10 border border-white/90 shadow-[0_16px_40px_rgba(103,34,160,0.06)]">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.55, delay: 0.15 }}
+          className="glass-reflective rounded-3xl p-6 sm:p-10"
+        >
           
-          {/* Legend Matching Reference: Available (Green), Selected (Dark Plum/Purple), Occupied (Gray) */}
+          {/* Legend Matching Reference: Available (Green), Selected (Dark Plum), Occupied (Gray) */}
           <div className="flex items-center justify-center gap-6 sm:gap-8 pb-6 border-b border-[#E8E1EF] text-xs font-semibold text-[#746A7D]">
             <div className="flex items-center gap-2">
               <div className="w-4 h-4 rounded-md bg-[#22C55E] shadow-xs"></div>
@@ -186,7 +200,7 @@ const SeatSelection = () => {
           {/* Curved Screen Arc Indicator */}
           <div className="relative my-8 sm:my-10 text-center">
             {/* Screen Arc SVG */}
-            <svg viewBox="0 0 500 50" className="w-3/4 max-w-md mx-auto text-[#241532] fill-none">
+            <svg viewBox="0 0 500 50" className="w-3/4 max-w-md mx-auto text-[#241532] fill-none drop-shadow-sm">
               <path d="M 20 40 Q 250 5 480 40" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round" />
             </svg>
             <span className="text-[11px] font-bold tracking-[0.25em] text-[#746A7D] uppercase block -mt-2">
@@ -214,10 +228,10 @@ const SeatSelection = () => {
                         onClick={() => handleSeatClick(row, col)}
                         className={`w-6 h-6 sm:w-7 sm:h-7 rounded-md text-[10px] font-bold transition-all flex items-center justify-center ${
                           selected
-                            ? 'bg-[#321044] text-white shadow-md scale-105'
+                            ? 'bg-[#321044] text-white shadow-md scale-110 ring-2 ring-[#B78BE5]'
                             : occupied
                             ? 'bg-[#D1D5DB] text-gray-500 cursor-not-allowed'
-                            : 'bg-[#22C55E] text-white hover:bg-emerald-600 cursor-pointer shadow-xs'
+                            : 'bg-[#22C55E] text-white hover:bg-emerald-600 cursor-pointer shadow-xs hover:scale-105'
                         }`}
                         title={seatId}
                       >
@@ -243,10 +257,10 @@ const SeatSelection = () => {
                         onClick={() => handleSeatClick(row, col)}
                         className={`w-6 h-6 sm:w-7 sm:h-7 rounded-md text-[10px] font-bold transition-all flex items-center justify-center ${
                           selected
-                            ? 'bg-[#321044] text-white shadow-md scale-105'
+                            ? 'bg-[#321044] text-white shadow-md scale-110 ring-2 ring-[#B78BE5]'
                             : occupied
                             ? 'bg-[#D1D5DB] text-gray-500 cursor-not-allowed'
-                            : 'bg-[#22C55E] text-white hover:bg-emerald-600 cursor-pointer shadow-xs'
+                            : 'bg-[#22C55E] text-white hover:bg-emerald-600 cursor-pointer shadow-xs hover:scale-105'
                         }`}
                         title={seatId}
                       >
@@ -272,10 +286,10 @@ const SeatSelection = () => {
                         onClick={() => handleSeatClick(row, col)}
                         className={`w-6 h-6 sm:w-7 sm:h-7 rounded-md text-[10px] font-bold transition-all flex items-center justify-center ${
                           selected
-                            ? 'bg-[#321044] text-white shadow-md scale-105'
+                            ? 'bg-[#321044] text-white shadow-md scale-110 ring-2 ring-[#B78BE5]'
                             : occupied
                             ? 'bg-[#D1D5DB] text-gray-500 cursor-not-allowed'
-                            : 'bg-[#22C55E] text-white hover:bg-emerald-600 cursor-pointer shadow-xs'
+                            : 'bg-[#22C55E] text-white hover:bg-emerald-600 cursor-pointer shadow-xs hover:scale-105'
                         }`}
                         title={seatId}
                       >
@@ -315,7 +329,7 @@ const SeatSelection = () => {
               onClick={handleContinue}
               className={`px-7 py-2.5 rounded-full text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer ${
                 isSelectionComplete
-                  ? 'bg-[#6722A0] hover:bg-[#521782] text-white shadow-md hover:scale-[1.02]'
+                  ? 'bg-[#6722A0] hover:bg-[#521782] text-white shadow-md hover:scale-[1.03]'
                   : 'bg-gray-200 text-gray-400 cursor-not-allowed'
               }`}
             >
@@ -324,7 +338,7 @@ const SeatSelection = () => {
             </button>
           </div>
 
-        </div>
+        </motion.div>
 
       </div>
     </div>

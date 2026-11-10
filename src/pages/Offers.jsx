@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import { OFFERS_DATA } from '../data/offersData';
+import PageBackground from '../components/common/PageBackground';
 import { Tag, Copy, Check, Sparkles, ArrowRight, X, Info } from 'lucide-react';
 
 const Offers = () => {
@@ -19,30 +21,64 @@ const Offers = () => {
     }
   };
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.2,
+      },
+    },
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] },
+    },
+  };
+
   return (
-    <div className="w-full min-h-[calc(100vh-74px)] bg-[#FAF8FE] relative py-8 sm:py-12">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6">
+    <div className="w-full min-h-[calc(100vh-74px)] relative py-8 sm:py-12">
+      {/* Dedicated Offers & Promotions Shimmering Background */}
+      <PageBackground variant="offers" />
+
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 relative z-10">
         
         {/* Header */}
-        <div className="text-center max-w-xl mx-auto mb-10">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#F5F0FC] text-[#6722A0] text-xs font-semibold border border-[#E8E1EF] mb-2">
+        <motion.div 
+          initial={{ opacity: 0, y: -15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="text-center max-w-xl mx-auto mb-10"
+        >
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/70 backdrop-blur-md text-[#6722A0] text-xs font-semibold border border-white/80 mb-2 shadow-xs">
             <Sparkles className="w-3.5 h-3.5 text-[#EAB308]" />
             <span>Exclusive Promotions</span>
           </div>
-          <h1 className="font-display font-black text-2xl sm:text-4xl text-[#241532]">
+          <h1 className="font-display font-black text-2xl sm:text-4xl text-[#241532] tracking-tight">
             Exciting Movie & Event Offers
           </h1>
           <p className="text-xs sm:text-sm text-[#746A7D] mt-1">
             Apply these coupon codes at checkout to unlock instant discounts and complimentary benefits.
           </p>
-        </div>
+        </motion.div>
 
         {/* Offers Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <motion.div 
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="grid grid-cols-1 md:grid-cols-2 gap-6"
+        >
           {OFFERS_DATA.map((offer) => (
-            <div
+            <motion.div
               key={offer.id}
-              className="bg-white/90 backdrop-blur-md rounded-3xl p-6 border border-white/90 shadow-sm hover:shadow-md transition-all flex flex-col justify-between"
+              variants={cardVariants}
+              className="glass-reflective rounded-3xl p-6 transition-all flex flex-col justify-between hover:-translate-y-1"
             >
               <div>
                 <div className="flex items-center justify-between mb-3">
@@ -62,7 +98,7 @@ const Offers = () => {
                 </p>
 
                 {/* Promo Coupon Pill Box */}
-                <div className="my-5 p-3 rounded-2xl bg-[#F8F4FD] border border-dashed border-[#6722A0]/40 flex items-center justify-between">
+                <div className="my-5 p-3 rounded-2xl bg-white/80 border border-dashed border-[#6722A0]/40 flex items-center justify-between shadow-xs">
                   <div className="flex items-center gap-2">
                     <Tag className="w-4 h-4 text-[#6722A0]" />
                     <span className="font-mono font-bold text-sm tracking-widest text-[#6722A0]">
@@ -72,11 +108,11 @@ const Offers = () => {
 
                   <button
                     onClick={() => handleCopy(offer.code)}
-                    className="px-3 py-1 rounded-xl bg-white text-[#6722A0] hover:bg-[#6722A0] hover:text-white text-xs font-bold transition-all shadow-xs flex items-center gap-1 cursor-pointer"
+                    className="px-3.5 py-1.5 rounded-xl bg-[#6722A0] text-white hover:bg-[#521782] text-xs font-bold transition-all shadow-xs flex items-center gap-1 cursor-pointer hover:scale-105"
                   >
                     {copiedCode === offer.code ? (
                       <>
-                        <Check className="w-3.5 h-3.5 text-emerald-600" />
+                        <Check className="w-3.5 h-3.5 text-emerald-300" />
                         <span>Copied!</span>
                       </>
                     ) : (
@@ -106,9 +142,9 @@ const Offers = () => {
                   <ArrowRight className="w-3 h-3" />
                 </button>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
       </div>
 

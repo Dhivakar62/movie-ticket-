@@ -1,3 +1,8 @@
+import screenImax from '../assets/images/screen_imax.jpg';
+import screenDolby from '../assets/images/screen_dolby.jpg';
+import screenGold from '../assets/images/screen_gold.jpg';
+import screenExecutive from '../assets/images/screen_executive.jpg';
+
 export const SCREENS_DATA = [
   {
     id: 'screen-1',
@@ -6,7 +11,7 @@ export const SCREENS_DATA = [
     badge: 'Flagship Cinema',
     capacity: 420,
     currentMovie: 'Kalki 2898 AD',
-    image: 'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=800&q=80',
+    image: screenImax,
     facilities: [
       'Dual 4K Laser Projection',
       'Dolby Atmos 64-Channel Spatial Audio',
@@ -15,7 +20,6 @@ export const SCREENS_DATA = [
       'VIP Lounger Rows',
     ],
     showtimes: ['10:00 AM', '01:45 PM', '05:30 PM', '07:00 PM', '09:15 PM'],
-    // Movie screening intervals (for break-time calculation):
     screenings: [
       { start: '10:00 AM', end: '12:30 PM', movie: 'Kalki 2898 AD' },
       { start: '01:15 PM', end: '03:45 PM', movie: 'Thangalaan' },
@@ -30,7 +34,7 @@ export const SCREENS_DATA = [
     badge: 'Acoustic Master',
     capacity: 310,
     currentMovie: 'Pushpa 2: The Rule',
-    image: 'https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?auto=format&fit=crop&w=800&q=80',
+    image: screenDolby,
     facilities: [
       '4K RGB Laser Brilliance',
       'Dolby Atmos 128-Track Immersive Sound',
@@ -51,7 +55,7 @@ export const SCREENS_DATA = [
     badge: 'Premium Comfort',
     capacity: 240,
     currentMovie: 'Thangalaan',
-    image: 'https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&w=800&q=80',
+    image: screenGold,
     facilities: [
       'Barco 4K Laser Cinema',
       'JBL 7.1 Surround Precision Sound',
@@ -72,7 +76,7 @@ export const SCREENS_DATA = [
     badge: 'Boutique Cinema',
     capacity: 150,
     currentMovie: 'Inside Out 2',
-    image: 'https://images.unsplash.com/photo-1478720568477-152d9b164e26?auto=format&fit=crop&w=800&q=80',
+    image: screenExecutive,
     facilities: [
       'Christie RealLaser 4K Projection',
       'Private Suite Ambiance',

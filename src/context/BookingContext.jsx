@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { MOVIES_DATA } from '../data/moviesData';
 import { EVENT_CATEGORIES, EVENT_PACKAGES } from '../data/eventsData';
-import posterKalki from '../assets/images/poster_kalki.png';
+import posterKalki from '../assets/images/movie_kalki_poster.jpg';
 
 const BookingContext = createContext();
 

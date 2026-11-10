@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useBooking } from '../context/BookingContext';
-import avatarPriya from '../assets/images/avatar_priya.png';
-import posterKalki from '../assets/images/poster_kalki.png';
+import PageBackground from '../components/common/PageBackground';
+import avatarPriya from '../assets/images/avatar_priya_unsplash.jpg';
+import posterKalki from '../assets/images/movie_kalki_poster.jpg';
 import { 
   LayoutDashboard, 
   Ticket, 
@@ -31,10 +33,10 @@ const Dashboard = () => {
   const upcomingEvents = eventsList.filter((e) => e.status === 'confirmed');
 
   return (
-    <div className="w-full min-h-[calc(100vh-74px)] bg-[#FAF8FE] flex flex-col md:flex-row">
+    <div className="w-full min-h-[calc(100vh-74px)] flex flex-col md:flex-row relative">
       
       {/* Left Sidebar directly matching reference bottom-right screen */}
-      <aside className="w-full md:w-64 bg-[#321044] text-white p-6 flex flex-col justify-between flex-shrink-0">
+      <aside className="w-full md:w-64 bg-[#321044] text-white p-6 flex flex-col justify-between flex-shrink-0 z-20 shadow-xl">
         <div>
           {/* Logo inside Sidebar */}
           <div className="flex items-center gap-2.5 mb-8 pb-6 border-b border-white/10">
@@ -121,13 +123,21 @@ const Dashboard = () => {
       </aside>
 
       {/* Main Content Area directly matching reference bottom-right screen */}
-      <main className="flex-1 p-6 sm:p-10 lg:p-12 overflow-y-auto">
-        <div className="max-w-4xl mx-auto">
+      <main className="flex-1 p-6 sm:p-10 lg:p-12 overflow-y-auto relative">
+        {/* Dedicated Modern Dashboard Background */}
+        <PageBackground variant="dashboard" />
+
+        <div className="max-w-4xl mx-auto relative z-10">
           
           {/* Header Row: Welcome Back Priya! + Avatar */}
-          <div className="flex items-center justify-between gap-4 mb-8">
+          <motion.div 
+            initial={{ opacity: 0, y: -15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="flex items-center justify-between gap-4 mb-8"
+          >
             <div>
-              <h1 className="font-display font-black text-2xl sm:text-3xl text-[#241532]">
+              <h1 className="font-display font-black text-2xl sm:text-3xl text-[#241532] tracking-tight">
                 Welcome Back, Priya!
               </h1>
               <p className="text-xs sm:text-sm text-[#746A7D] mt-0.5">
@@ -142,13 +152,18 @@ const Dashboard = () => {
                 className="w-full h-full object-cover"
               />
             </div>
-          </div>
+          </motion.div>
 
           {/* Quick Stats Cards Row */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mb-10">
+          <motion.div 
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.15 }}
+            className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mb-10"
+          >
             {/* Stat 1: Upcoming Movies */}
-            <div className="bg-white/80 backdrop-blur-md rounded-2xl p-5 border border-white/90 shadow-sm flex items-center gap-4">
-              <div className="w-12 h-12 rounded-2xl bg-[#F5F0FC] text-[#6722A0] flex items-center justify-center flex-shrink-0 shadow-xs">
+            <div className="glass-reflective rounded-2xl p-5 flex items-center gap-4">
+              <div className="w-12 h-12 rounded-2xl bg-[#F5F0FC] text-[#6722A0] flex items-center justify-center flex-shrink-0 shadow-xs border border-white">
                 <Ticket className="w-6 h-6" />
               </div>
               <div>
@@ -160,8 +175,8 @@ const Dashboard = () => {
             </div>
 
             {/* Stat 2: Upcoming Events */}
-            <div className="bg-white/80 backdrop-blur-md rounded-2xl p-5 border border-white/90 shadow-sm flex items-center gap-4">
-              <div className="w-12 h-12 rounded-2xl bg-[#FDF1F7] text-[#EC4899] flex items-center justify-center flex-shrink-0 shadow-xs">
+            <div className="glass-reflective rounded-2xl p-5 flex items-center gap-4">
+              <div className="w-12 h-12 rounded-2xl bg-[#FDF1F7] text-[#EC4899] flex items-center justify-center flex-shrink-0 shadow-xs border border-white">
                 <PartyPopper className="w-6 h-6" />
               </div>
               <div>
@@ -171,10 +186,15 @@ const Dashboard = () => {
                 </span>
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* "Your Upcoming Bookings" Section */}
-          <div className="mb-10">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.55, delay: 0.25 }}
+            className="mb-10"
+          >
             <div className="flex items-center justify-between mb-4">
               <h2 className="font-display font-bold text-lg text-[#241532]">
                 Your Upcoming Bookings
@@ -193,13 +213,13 @@ const Dashboard = () => {
               {upcomingMovies.map((b) => (
                 <div
                   key={b.bookingId}
-                  className="bg-white/90 backdrop-blur-md rounded-3xl p-5 border border-white/90 shadow-sm hover:shadow-md transition-all flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
+                  className="glass-reflective rounded-3xl p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
                 >
                   <div className="flex items-center gap-4">
                     <img
                       src={b.poster || posterKalki}
                       alt={b.movieTitle}
-                      className="w-16 h-20 object-cover rounded-xl shadow-xs flex-shrink-0"
+                      className="w-16 h-20 object-cover rounded-xl shadow-xs flex-shrink-0 border border-white/80"
                     />
                     <div>
                       <h3 className="font-display font-bold text-base text-[#241532]">
@@ -217,7 +237,7 @@ const Dashboard = () => {
                   <div className="flex items-center gap-3 self-end sm:self-center">
                     <button
                       onClick={() => setSelectedTicketModal(b)}
-                      className="px-5 py-2 rounded-full bg-[#321044] hover:bg-[#20072d] text-white text-xs font-semibold shadow-xs flex items-center gap-1.5 transition-all cursor-pointer"
+                      className="px-5 py-2 rounded-full bg-[#321044] hover:bg-[#20072d] text-white text-xs font-semibold shadow-xs flex items-center gap-1.5 transition-all cursor-pointer hover:scale-[1.03]"
                     >
                       <span>View Ticket</span>
                     </button>
@@ -225,11 +245,15 @@ const Dashboard = () => {
                 </div>
               ))}
             </div>
-          </div>
+          </motion.div>
 
           {/* "Your Upcoming Events" Section */}
           {upcomingEvents.length > 0 && (
-            <div>
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.35 }}
+            >
               <div className="flex items-center justify-between mb-4">
                 <h2 className="font-display font-bold text-lg text-[#241532]">
                   Your Upcoming Private Celebrations
@@ -247,10 +271,10 @@ const Dashboard = () => {
                 {upcomingEvents.map((e) => (
                   <div
                     key={e.bookingId}
-                    className="bg-white/90 backdrop-blur-md rounded-3xl p-5 border border-pink-100 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
+                    className="glass-reflective rounded-3xl p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
                   >
                     <div className="flex items-center gap-4">
-                      <div className="w-14 h-14 rounded-2xl bg-[#FDF1F7] text-[#EC4899] flex items-center justify-center flex-shrink-0 shadow-xs">
+                      <div className="w-14 h-14 rounded-2xl bg-[#FDF1F7] text-[#EC4899] flex items-center justify-center flex-shrink-0 shadow-xs border border-white">
                         <Sparkles className="w-6 h-6" />
                       </div>
                       <div>
@@ -268,14 +292,14 @@ const Dashboard = () => {
 
                     <button
                       onClick={() => navigate('/events/confirmation')}
-                      className="px-5 py-2 rounded-full bg-[#6722A0] hover:bg-[#521782] text-white text-xs font-semibold shadow-xs transition-all cursor-pointer"
+                      className="px-5 py-2 rounded-full bg-[#6722A0] hover:bg-[#521782] text-white text-xs font-semibold shadow-xs transition-all cursor-pointer hover:scale-[1.03]"
                     >
                       <span>View Event Pass</span>
                     </button>
                   </div>
                 ))}
               </div>
-            </div>
+            </motion.div>
           )}
 
         </div>

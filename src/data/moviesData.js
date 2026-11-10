@@ -1,9 +1,14 @@
-import posterThangalaan from '../assets/images/poster_thangalaan.png';
-import posterPushpa2 from '../assets/images/poster_pushpa2.png';
-import posterKalki from '../assets/images/poster_kalki.png';
-import posterDeadpool from '../assets/images/poster_deadpool.png';
-import posterInsideOut2 from '../assets/images/poster_insideout2.png';
-import kalkiBanner from '../assets/images/kalki_banner_hd.png';
+import posterKalki from '../assets/images/movie_kalki_poster.jpg';
+import bannerKalki from '../assets/images/movie_kalki_banner.jpg';
+import posterThangalaan from '../assets/images/movie_thangalaan_poster.jpg';
+import bannerThangalaan from '../assets/images/movie_thangalaan_banner.jpg';
+import posterPushpa2 from '../assets/images/movie_pushpa2_poster.jpg';
+import bannerPushpa2 from '../assets/images/movie_pushpa2_banner.jpg';
+import posterDeadpool from '../assets/images/movie_deadpool_poster.jpg';
+import bannerDeadpool from '../assets/images/movie_deadpool_banner.jpg';
+import posterInsideOut2 from '../assets/images/movie_insideout2_poster.jpg';
+import bannerInsideOut2 from '../assets/images/movie_insideout2_banner.jpg';
+import posterGladiator2 from '../assets/images/movie_gladiator2_poster.jpg';
 
 export const MOVIES_DATA = [
   {
@@ -16,7 +21,7 @@ export const MOVIES_DATA = [
     duration: '3h 10m',
     certificate: 'UA',
     releaseDate: '27 June 2024',
-    banner: kalkiBanner,
+    banner: bannerKalki,
     poster: posterKalki,
     categories: ['now-showing', 'popular', 'recommended'],
     screens: ['Screen 1 (IMAX 4K Laser)', 'Screen 2 (Dolby Atmos Luxe)'],
@@ -25,10 +30,10 @@ export const MOVIES_DATA = [
     director: 'Nag Ashwin',
     music: 'Santhosh Narayanan',
     cast: [
-      { name: 'Prabhas', role: 'Bhairava', photo: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80' },
-      { name: 'Deepika Padukone', role: 'SUM-80', photo: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80' },
-      { name: 'Amitabh Bachchan', role: 'Ashwatthama', photo: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&q=80' },
-      { name: 'Kamal Haasan', role: 'Supreme Yaskin', photo: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=150&q=80' },
+      { name: 'Prabhas', role: 'Bhairava', photo: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80' },
+      { name: 'Deepika Padukone', role: 'SUM-80', photo: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80' },
+      { name: 'Amitabh Bachchan', role: 'Ashwatthama', photo: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80' },
+      { name: 'Kamal Haasan', role: 'Supreme Yaskin', photo: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=200&q=80' },
     ],
     reviews: [
       { user: 'Vikram R.', rating: 9, comment: 'Visual spectacle on par with Hollywood! Prabhas and Amitabh Bachchan bring an unforgettable mythological sci-fi experience.', date: 'Yesterday' },
@@ -45,7 +50,7 @@ export const MOVIES_DATA = [
     duration: '2h 45m',
     certificate: 'UA',
     releaseDate: '15 August 2024',
-    banner: 'https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&w=1200&q=80',
+    banner: bannerThangalaan,
     poster: posterThangalaan,
     categories: ['now-showing', 'trending'],
     screens: ['Screen 1 (IMAX 4K Laser)', 'Screen 3 (Gold Class)'],
@@ -54,9 +59,9 @@ export const MOVIES_DATA = [
     director: 'Pa. Ranjith',
     music: 'GV Prakash Kumar',
     cast: [
-      { name: 'Chiyaan Vikram', role: 'Thangalaan', photo: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&q=80' },
-      { name: 'Malavika Mohanan', role: 'Aarathi', photo: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80' },
-      { name: 'Parvathy Thiruvothu', role: 'Gangamma', photo: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=150&q=80' },
+      { name: 'Chiyaan Vikram', role: 'Thangalaan', photo: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80' },
+      { name: 'Malavika Mohanan', role: 'Aarathi', photo: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80' },
+      { name: 'Parvathy Thiruvothu', role: 'Gangamma', photo: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=200&q=80' },
     ],
     reviews: [
       { user: 'Karthik N.', rating: 8.5, comment: 'Vikram gives a career-defining performance. The cinematic atmosphere is raw and captivating.', date: '3 days ago' },
@@ -72,7 +77,7 @@ export const MOVIES_DATA = [
     duration: '3h 20m',
     certificate: 'UA',
     releaseDate: '5 December 2024',
-    banner: 'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=1200&q=80',
+    banner: bannerPushpa2,
     poster: posterPushpa2,
     categories: ['now-showing', 'trending', 'popular'],
     screens: ['Screen 1 (IMAX 4K Laser)', 'Screen 2 (Dolby Atmos Luxe)'],
@@ -81,9 +86,9 @@ export const MOVIES_DATA = [
     director: 'Sukumar',
     music: 'Devi Sri Prasad',
     cast: [
-      { name: 'Allu Arjun', role: 'Pushpa Raj', photo: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80' },
-      { name: 'Rashmika Mandanna', role: 'Srivalli', photo: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80' },
-      { name: 'Fahadh Faasil', role: 'Bhanwar Singh Shekhawat', photo: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&q=80' },
+      { name: 'Allu Arjun', role: 'Pushpa Raj', photo: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80' },
+      { name: 'Rashmika Mandanna', role: 'Srivalli', photo: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80' },
+      { name: 'Fahadh Faasil', role: 'Bhanwar Singh Shekhawat', photo: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80' },
     ],
     reviews: [
       { user: 'Arun K.', rating: 9, comment: 'The swagger, background score, and dialogue delivery are electrifying in the theater!', date: 'Yesterday' },
@@ -99,7 +104,7 @@ export const MOVIES_DATA = [
     duration: '2h 08m',
     certificate: 'A',
     releaseDate: '26 July 2024',
-    banner: 'https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?auto=format&fit=crop&w=1200&q=80',
+    banner: bannerDeadpool,
     poster: posterDeadpool,
     categories: ['now-showing', 'trending', 'popular'],
     screens: ['Screen 1 (IMAX 4K Laser)', 'Screen 3 (Gold Class)'],
@@ -108,8 +113,8 @@ export const MOVIES_DATA = [
     director: 'Shawn Levy',
     music: 'Rob Simonsen',
     cast: [
-      { name: 'Ryan Reynolds', role: 'Wade Wilson / Deadpool', photo: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80' },
-      { name: 'Hugh Jackman', role: 'Logan / Wolverine', photo: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&q=80' },
+      { name: 'Ryan Reynolds', role: 'Wade Wilson / Deadpool', photo: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80' },
+      { name: 'Hugh Jackman', role: 'Logan / Wolverine', photo: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80' },
     ],
     reviews: [
       { user: 'John D.', rating: 8.5, comment: 'Laugh out loud comedy, incredible cameos, and brutal action sequences. Must watch on IMAX!', date: '4 days ago' },
@@ -125,7 +130,7 @@ export const MOVIES_DATA = [
     duration: '1h 36m',
     certificate: 'U',
     releaseDate: '14 June 2024',
-    banner: 'https://images.unsplash.com/photo-1478720568477-152d9b164e26?auto=format&fit=crop&w=1200&q=80',
+    banner: bannerInsideOut2,
     poster: posterInsideOut2,
     categories: ['now-showing', 'recommended'],
     screens: ['Screen 4 (Executive Suites)', 'Screen 2 (Dolby Atmos Luxe)'],
@@ -134,8 +139,8 @@ export const MOVIES_DATA = [
     director: 'Kelsey Mann',
     music: 'Andrea Datzman',
     cast: [
-      { name: 'Amy Poehler', role: 'Joy (voice)', photo: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=150&q=80' },
-      { name: 'Maya Hawke', role: 'Anxiety (voice)', photo: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80' },
+      { name: 'Amy Poehler', role: 'Joy (voice)', photo: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=200&q=80' },
+      { name: 'Maya Hawke', role: 'Anxiety (voice)', photo: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80' },
     ],
     reviews: [
       { user: 'Pooja T.', rating: 9, comment: 'Heartfelt, emotional, and so relatable. Kids and adults will both love it.', date: '1 week ago' },
@@ -151,8 +156,8 @@ export const MOVIES_DATA = [
     duration: '2h 28m',
     certificate: 'A',
     releaseDate: '15 November 2024',
-    banner: 'https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=1200&q=80',
-    poster: 'https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=600&q=80',
+    banner: 'https://images.unsplash.com/photo-1552832230-c0197dd311b5?auto=format&fit=crop&w=1600&h=650&q=80',
+    poster: posterGladiator2,
     categories: ['coming-soon', 'trending'],
     screens: ['Screen 1 (IMAX 4K Laser)'],
     showtimes: ['Coming Soon Nov 2024'],
@@ -160,9 +165,9 @@ export const MOVIES_DATA = [
     director: 'Ridley Scott',
     music: 'Harry Gregson-Williams',
     cast: [
-      { name: 'Paul Mescal', role: 'Lucius', photo: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80' },
-      { name: 'Pedro Pascal', role: 'Marcus Acacius', photo: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&q=80' },
-      { name: 'Denzel Washington', role: 'Macrinus', photo: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=150&q=80' },
+      { name: 'Paul Mescal', role: 'Lucius', photo: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80' },
+      { name: 'Pedro Pascal', role: 'Marcus Acacius', photo: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80' },
+      { name: 'Denzel Washington', role: 'Macrinus', photo: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=200&q=80' },
     ],
     reviews: []
   },
